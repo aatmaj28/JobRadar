@@ -1,0 +1,109 @@
+# Job radar settings. Every run reads this file, so edit it any time and push.
+
+me:
+  file_prefix: Aatmaj_Salunke        # resumes are named Aatmaj_Salunke_Resume_<Company>.pdf
+
+profile:
+  dir: profile                        # the same files your Claude Projects use
+
+titles:
+  # Kept if the title matches ANY include pattern and NO exclude pattern (not case sensitive)
+  include:
+    - '\bai\b.*\b(engineer|developer|scientist)\b'          # AI Engineer, Applied AI Engineer, AI Software Engineer
+    - '\b(ml|machine learning|deep learning)\b.*\b(engineer|developer|scientist)\b'
+    - '\b(llm|gen ?ai|generative ai)\b'
+    - '\bagents?\b.*\bengineer|\bagentic\b'
+    - 'applied scientist'
+    - 'research engineer'
+    - 'data scientist'
+    - '\b(computer vision|nlp|natural language)\b'
+    - '\b(mlops|ml ops|ml platform|ml infrastructure)\b'
+    - 'forward deployed'
+    - '\bai solutions? engineer|solutions engineer.*\b(ai|ml)\b'
+    - 'software (engineer|developer)|software development engineer|\bsde\b'
+    - 'full ?stack'
+    - 'back ?end (engineer|developer)'
+    - 'member of technical staff'
+  exclude:
+    - '\b(senior|sr)\b'
+    - '(?<!technical )\bstaff\b'
+    - '\bprincipal\b'
+    - '\blead\b'
+    - '\b(manager|director|head of|vp|vice president|chief)\b'
+    - '\b(architect|distinguished|fellow)\b'
+    - '\b(ii|iii|iv|v|vi)\b'                                # level II and up
+    - '\b(engineer|scientist|developer|sde|mle)\s*,?\s*[2-6]\b'
+    - '\blevel\s*[2-9]\b|\bl[4-9]\b'
+    - '\b(intern|internship|co[\s-]?op|apprentice\w*)\b'
+    - '\b(part[\s-]?time|contract|contractor|temporary|temp)\b'
+    - '\b(phd|ph\.d|post[\s-]?doc\w*)\b'
+    - 'clearance|ts/sci|top secret|polygraph'
+    - '\b(sales|account executive|recruiter|marketing)\b'
+
+entry_level:
+  max_years_required: 2               # skip postings whose lowest "N years of experience" is above this
+
+work_authorization:
+  # F-1 OPT from Dec 2026, STEM OPT eligible, H-1B sponsorship needed later
+  skip_no_sponsorship: true           # "we don't sponsor", "without sponsorship now or in the future", ...
+  skip_citizenship_or_clearance: true # "US citizens only", "active clearance", "green card holders only", ...
+
+location:
+  allow_unspecified_remote: true      # "Remote" with no country counts as US
+
+skip_companies: []                    # add names you never want to see
+
+max_job_age_days: 21
+
+sources:
+  simplify: true                      # SimplifyJobs New Grad feed
+  simplify_max_age_days: 45
+  curated: true                       # companies.yaml
+  discovered: true                    # boards found automatically in the Simplify feed
+  discovered_buckets: 3               # check a third of discovered boards per run (keeps runs short)
+  discovered_limit: 2000             # boards found in the Simplify feed, checked about every 45 min
+
+http:
+  workers: 32
+  timeout: 20
+
+llm:
+  provider: groq                      # groq (GROQ_API_KEY) or anthropic (ANTHROPIC_API_KEY + pip install anthropic)
+  groq_plan: free                     # free or developer. Free can't fit your resume prompt, see README
+
+scoring:
+  use_ai: true
+  model: openai/gpt-oss-20b           # anthropic: claude-haiku-5-5
+  batch_size: 6
+  max_ai_jobs_per_run: 6            # one Groq call per run, so it never waits on the per minute limit
+  min_score_to_ping: 6                # raise for fewer emails, lower for more
+  dealbreakers:
+    - says it will not sponsor visas now or in the future, or requires work authorization without sponsorship
+    - requires US citizenship, permanent residency, or a security clearance
+    - requires more than 2 years of full time professional experience
+    - requires a PhD
+
+prep:
+  enabled: true                       # automatic resume PDFs, only when the AI plan can fit your prompt
+  model: openai/gpt-oss-120b          # anthropic: claude-sonnet-5-5
+  min_score: 8
+  cover_letter: false
+  max_per_run: 3
+  max_per_day: 10
+
+notify:
+  max_pings_per_run: 10
+  max_pings_per_day: 30               # anything past this comes as one summary email
+
+referrals:
+  default_hook: "I built an LLM agent system at LiquidPixels this summer, and my DLens paper is a Spotlight at AAAI FSS 2026."
+  links:
+    - label: NEU alumni
+      url: "https://www.linkedin.com/school/northeastern-university/people/?keywords={company}"
+    - label: MUJ alumni
+      url: "https://www.linkedin.com/search/results/people/?keywords={company}%20Manipal%20University%20Jaipur"
+    - label: Recruiters
+      url: "https://www.linkedin.com/search/results/people/?keywords={company}%20university%20recruiter"
+  messages:
+    - "Hi [Name]! I'm finishing my MS in AI at Northeastern (Dec 2026) and just applied for the {role} role at {company}. {hook} Would you be open to referring me? Thanks, Aatmaj Amol Salunke"
+    - "Hi [Name], I'm an MS in AI student at Northeastern and just applied for {role} at {company}. {hook} I'd love to hear what the team is like if you have a few minutes. Thanks, Aatmaj Amol Salunke"

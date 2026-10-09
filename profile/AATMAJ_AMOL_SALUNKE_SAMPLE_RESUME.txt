@@ -1,0 +1,64 @@
+# AATMAJ AMOL SALUNKE — SAMPLE RESUME (STRUCTURE & FIXED SECTIONS)
+
+> This file serves as the structural template for the final resume.
+> Fixed sections (Header, Education, Skills, Publications) should be copied exactly as-is.
+> The Experience and Projects sections here are samples — the bot should replace them with selections from File 2 and File 3.
+
+---
+
+## HEADER (FIXED — NEVER MODIFY)
+
+Aatmaj Amol Salunke
+Boston, MA | (617) 708-9926 | salunke.aa@northeastern.edu | GitHub | LinkedIn
+
+Links (for hyperref clickable buttons in LaTeX):
+- Email: mailto:salunke.aa@northeastern.edu
+- GitHub display text: "GitHub" → links to https://github.com/aatmaj28
+- LinkedIn display text: "LinkedIn" → links to https://www.linkedin.com/in/aatmaj-salunke-7106041b0/
+
+---
+
+## EDUCATION (FIXED — NEVER MODIFY)
+
+Northeastern University, Boston, MA                                                Sept 2024 - Dec 2026
+M.S. in Artificial Intelligence (Khoury College of Computer Sciences)              CGPA: 3.78/4.0
+Courses: Reinforcement Learning, Foundations of AI, Algorithms, NLP, Generative AI, Applied Programming for AI
+
+Manipal University Jaipur, India                                                   Oct 2020 – May 2024
+B.Tech in Computer Science and Engineering                                         CGPA: 3.62/4.0
+Courses: NLP, Deep Learning, Design & Analysis of Algorithms, Database Management Systems, Computer Vision
+
+---
+
+## SECTION ORDER (FOLLOW THIS EXACTLY)
+
+1. Header
+2. Education
+3. Experience (3 entries, 2 bullets each — selected from File 2)
+4. Academic Projects (2 entries, 2 bullets each — selected from File 3)
+5. Skills (5 rows — reorder by relevance to JD)
+6. Publications (include only if relevant to the role)
+
+---
+
+## SKILLS (FIXED ITEMS — REORDER BY RELEVANCE, DO NOT ADD OR REMOVE)
+
+Languages: Python, C++, Java, C, C#, HTML/CSS, JavaScript, MySQL, React, Next.js, Unity, SQL, TypeScript, PHP
+Libraries/Frameworks: TensorFlow, PyTorch, Sklearn, Huggingface, NLTK, Gym, LangChain, LangGraph, LlamaIndex, HayStack, Google ADK, CrewAI, Selenium, Beautiful Soup, Pydantic AI
+Data Science: Exploratory Data Analysis, Data Preprocessing, Time Series Analysis, Feature Engineering, Statistical Modeling
+Backend/API: FastAPI, Django, Flask, Pinecone, MongoDB, REST APIs, LLMs, FAISS, PostgreSQL, Git, Redis, pgvector, SQLAlchemy, QDrant, ChromaDB, vLLM / Ollama, RabbitMQ, MCPs
+Deployment & Infrastructure: AWS (EC2, S3, Lambda), MS Azure, Docker, Vercel, Streamlit, Hugging Face, Nginx, NVIDIA A6000/Blackwell, Railway
+
+---
+
+## PUBLICATIONS (INCLUDE ONLY IF RELEVANT TO THE ROLE)
+
+- DLens: Closed-Loop AI Agents for Parsimonious Scientific Machine Learning in Dark Matter Gravitational Lensing (AAAI 2026 Fall Symposium Series, Spotlight)
+- Deep Learning-Based Satellite Image Analysis for Predicting Land Surface Temperature and Emissivity from Multi-Region Landsat 8 OLI/TIRS Imagery
+- Enhancing Urban Traffic Management through Predictive Modelling and Drone-Captured Image Analysis for Smart Traffic Lights
+- WasteSegNet: A Deep Learning Approach for Smart Waste Segregation in Urban Environments
+- Enhancing Contextual Understanding in NLP: A Subword Tokenization Approach with ELMo and BERT
+- OTPLM: An Ontology-Driven Approach for Tagging Plants of Medicinal and Ornamental Value using Hybrid Semantics and Strategic Learning Models
+- DRHA: Document Recommendation for Horticulture and Agro-Based Farming
+
+> Note: Select only the 2-3 most relevant publications for the target role. If none are relevant, omit the Publications section entirely.

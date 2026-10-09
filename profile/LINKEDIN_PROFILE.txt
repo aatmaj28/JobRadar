@@ -1,0 +1,670 @@
+Contact
+aatmajsalunke@yahoo.com
+
+www.linkedin.com/in/aatmaj-salunke-7106041b0 (LinkedIn)
+github.com/aatmaj28 (Personal)
+aatmaj28.github.io/Portfolio/
+(Portfolio)
+aatmaj28.github.io/
+PhotographyWebsite/ (Blog)
+
+Top Skills
+REST APIs
+Django REST Framework
+Time Series Analysis
+
+Languages
+French (Elementary)
+Marathi (Native or Bilingual)
+English (Full Professional)
+Hindi (Full Professional)
+German (Elementary)
+
+Certifications
+Artificial Intelligence Bootcamp
+Social & Behavioral Research Basic/Refresher
+Conflict of Interest mini-course
+Learning Python
+
+Aatmaj Salunke
+
+Research Assistant @DASH | Senator of Tech @GSG-NEU | Ex AI
+Engineer @LiquidPixels | Ex AI-Quant Fin. @BGA | Ambassador
+@Adobe | Ex. Intel, IBM, Salesforce & ISRO | 3x Hackathon Winner
+Boston, Massachusetts, United States
+
+Summary
+Hello there! I'm currently pursuing a Master's of Science degree
+in Artificial Intelligence at Northeastern University, Boston,
+Massachusetts. I completed my undergraduate studies in 2024 with
+a B.Tech in Computer Science and Engineering, specializing in Data
+Science and Machine Learning, from Manipal University Jaipur.
+Originally from Mumbai, I thrive on meeting new people and creating
+meaningful connections in both personal and professional spheres.
+As an AI enthusiast, I find immense joy in bringing my personal
+visions to life through coding and automation. My passion for
+programming has enabled me to collaborate with individuals from
+diverse backgrounds, enriching my learning experience.
+Throughout my academic journey, I've gained extensive proficiency
+in Data Science, Software Engineering methods, Programming, and
+other essential skills critical to the tech industry. My commitment to
+staying at the forefront of technological advancements continues to
+drive me toward continuous learning and innovation.
+
+Digital Marketing and E-Commerce
+101
+
+Beyond my technical pursuits, I have also nurtured a keen
+interest in photography and video editing. These artistic skills
+
+Honors-Awards
+
+complement my tech expertise, opening up exciting possibilities for
+creative expression and problem-solving in my future endeavors.
+You can check out my work here -> https://aatmaj28.github.io/
+PhotographyWebsite/
+
+Community Growth Appreciation
+Award
+Dean's List - Excellence in
+Academics
+Outstanding Results and Conduct
+Award
+Successful Hacktober'22 Fest
+Mentor and Organizer
+Scholar Badge Awardee'19
+
+I'm now actively seeking career opportunities, particularly in Machine
+Learning and Artificial Intelligence. If you're interested in connecting
+or have any leads on job openings that align with my interests and
+skills, I'd love to hear from you!
+
+Publications
+
+
+Enhancing Contextual
+Understanding in NLP: A Subword
+Tokenization Approach With ELMo
+and BERT
+DLens: Closed-Loop AI Agents for
+Parsimonious Scientific Machine
+Learning in Dark Matter Gravitational
+Lensing
+WasteSegNet: A Deep Learning
+Approach for Smart Waste
+Segregation in Urban Environments
+Enhancing Urban Traffic
+Management through Predictive
+Modelling and Drone-Captured
+Image Analysis for Smart Traffic
+Lights
+Adaptive Personalization: Enhancing
+User Engagement through Dynamic
+Diversification in Recommendation
+Systems
+
+Experience
+Graduate Student Government, Northeastern University
+Senator of Technology
+January 2026 - Present (10 months)
+Boston, MA
+
+- Managed and maintained the Graduate Student Government website and
+monthly newsletter, ensuring timely updates, accurate content, and effective
+communication with the graduate student community.
+- Provided technical support and troubleshooting for the Graduate Student
+Government, resolving website, communication, and operational issues to
+ensure smooth day-to-day organizational activities.
+
+DMSB AI Strategic Hub (DASH)
+Graduate Research Assistant
+
+September 2025 - Present (1 year 2 months)
+Boston, MA
+Applied AI & Autonomous Systems Engineer at the D'Amore-McKim School of
+Business at Northeastern University
+
+Book Publisher LLC
+Academic Peer Reviewer – Editorial Board
+January 2025 - Present (1 year 10 months)
+
+- Reviewed scholarly book chapters submitted for publication, providing
+detailed evaluations of research quality, methodological soundness, and
+contribution to the field, while adhering to the editorial guidelines and deadlines
+set by the publishing board.
+- Collaborated with the editorial office to uphold academic integrity and ensure
+the publication of high-quality content by offering well-structured, objective,
+and actionable feedback to authors for revisions and improvements.
+
+Adobe
+Campus Ambassador
+
+August 2025 - Present (1 year 3 months)
+Boston, Massachusetts, United States
+- Leading efforts across campus to raise awareness of Adobe’s creative tools
+by organizing hands-on workshops, peer-learning sessions, and pop-ups,
+helping students discover and use these resources in their academic and
+creative work.
+
+
+- Collaborating with student groups, academic departments, and creative clubs
+to integrate Adobe’s tools into campus life, enhance digital skills, and build a
+community focused on creativity, innovation, and peer support.
+
+LiquidPixels, Inc.
+AI Engineer Co-op
+
+May 2026 - August 2026 (4 months)
+Billerica, MA
+- Built Chainmaiker, an autonomous LLM agent that turns natural-language
+requests into LiquiFire OS image-processing chains (a domain-specific
+language), architecting a multi-agent pipeline with a self-hosted open-weight
+coder model (Qwen3.6-Coder served via vLLM), hybrid RAG retrieval, and a
+closed-loop validate-render-repair system for reliable structured generation.
+- Designed the system's quality and evaluation infrastructure end-to-end — a
+semantic eval harness that catches "valid-but-wrong" outputs, a render-gated
+synthetic data pipeline to expand DSL coverage, and per-block observability
+tooling — and drove an architecture consolidation unifying the generation and
+agent pipelines onto a single engine.
+
+Borealis Global Analytics
+AI Quant Finance Engineer Co-op
+
+June 2025 - December 2025 (7 months)
+South Carolina, United States
+- Engineered scalable analytics and AI solutions with retrieval-augmented
+generation (RAG) to analyze large volumes of user and financial data,
+significantly improving user engagement, decision-making accuracy, and
+proprietary financial knowledge discoverability; contributed formal technical
+documentation and research publications.
+- Led development of a scalable AI-based forecasting system using
+coordinated autonomous components and global sentiment data to
+generate country-level investment insights, achieving multi-fold performance
+improvements through optimized execution.
+
+Institution of Engineering and Technology (IET)
+Academic Peer Reviewer – Editorial Board
+June 2025 - September 2025 (4 months)
+
+
+
+- Actively involved in reviewing academic manuscripts for IET journals to
+support the advancement of engineering and technology. Responsibilities
+include evaluating submissions for technical accuracy, clarity, and originality.
+- Work closely with the editorial board and fellow reviewers to provide
+constructive feedback and maintain high publication standards.
+
+Social(Formerly Script Foundation)
+Developer
+June 2025 - August 2025 (3 months)
+
+Carnegie Mellon University
+Research Assistant
+
+May 2025 - August 2025 (4 months)
+CryoSAM Implementation for Cryo-Electron Tomography Analysis
+- Developed a Python implementation of CryoSAM, integrating Meta's
+Segment Anything Model (SAM) with DINO self-supervised learning to enable
+automated 3D particle segmentation in cryo-electron tomography datasets,
+achieving 95%+ confidence scores on real HIV particle detection
+- Built comprehensive data processing pipelines handling MRC/tomogram
+files, implemented 3D propagation algorithms for volumetric segmentation,
+and created visualization tools for analyzing protein structures at nanometer
+resolution in noisy CryoET data
+- Tested segmentation accuracy on both synthetic and real experimental data
+from EMPIAR repositories, demonstrating successful particle identification
+from single-click annotations and automated detection of similar structures
+throughout 3D volumes, critical for structural biology research
+
+Environmental Molecular Sciences Laboratory (EMSL)
+2025 EMSL Summer School (AI/ML, & Agent-Based Science)
+July 2025 - July 2025 (1 month)
+Massachusetts, United States
+
+- Gained hands-on exposure to the fundamentals of AI/ML, large language
+models (LLMs), and the design of semi-autonomous AI agents to enhance
+laboratory automation and data-driven scientific discovery.
+
+
+
+- Explored cutting-edge applications of AI-based agents in integrating
+experimental data streams and accelerating model-experiment workflows in
+scientific research.
+- Engaged in structured networking breaks and collaborative sessions with
+researchers, engineers, and professionals from diverse backgrounds, fostering
+new connections and idea exchanges.
+
+McKinsey & Company
+McKinsey Forward Program Fellow
+April 2025 - July 2025 (4 months)
+Boston, Massachusetts, United States
+
+- Completed a highly interactive, self-paced 12-week program focused on
+essential workplace skills including adaptability, problem-solving, effective
+communication, digital fluency, and relationship-building.
+- Earned the McKinsey.org Forward badge after engaging with case-based
+scenarios, reflection exercises, and live learning events led by McKinsey
+experts to build foundational leadership and self-management skills.
+- Connected and collaborated with a diverse global community of peers and
+mentors, including professionals from the McKinsey team, gaining insights into
+self-leadership and career growth in the modern workplace.
+
+Omdena
+Lead Machine Learning Engineer
+April 2025 - June 2025 (3 months)
+United States
+1: – - &
+
+( )
+
+- Spearheaded the transformation of a camera-based vital signs monitoring
+system from prototype to a market-ready product.
+- Designed scalable cloud architecture and implemented HIPAA-compliant
+security protocols for deployment.
+- Built real-time vital sign detection using webcams/smartphone cameras, with
+dashboards for real-time and historical monitoring.
+- Delivered a demo application and API documentation enabling integration
+with healthcare systems.
+2: –
+
+( )
+
+
+- Directed the development of an AI-driven crop rotation recommendation
+system addressing soil degradation, yield instability, and climate resilience.
+- Designed a lightweight, multilingual mobile app with offline capabilities for
+rural farmers.
+- Implemented AI models integrating soil, climate, and market data to generate
+personalized crop plans.
+- Developed visual recommendation dashboards showcasing projected yield
+improvements and soil health benefits.
+
+Social Winter of Code (SWOC)
+Open Source Developer
+
+November 2024 - March 2025 (5 months)
+Developed TripTailor - Personalized Travel Itinerary Generator
+Built during Social Winter of Code Season 5 Hackathon, TripTailor is an
+AI-powered travel planner that automates itinerary creation based on user
+preferences, budget, and trip duration.
+Key Contributions:
+✅ Designed and implemented the core logic for extracting user inputs
+(destination, budget, duration) and generating optimized travel plans.
+✅ Integrated multiple APIs (TripAdvisor, Google Maps, OpenWeatherMap, IPAPI) to fetch real-time travel insights, including hotels, attractions, transit, and
+weather forecasts.
+✅ Developed a Streamlit-based UI for an intuitive and seamless user
+experience.
+✅ Implemented nearest airport detection and flight search functionality.
+✅ Optimized the recommendation system for personalized and time-efficient
+trip planning.
+Future Scope: Enhancing with real-time bookings, voice input, offline access,
+and expense tracking.
+This project streamlines travel planning, reducing manual effort and making
+vacations stress-free! ✅
+
+Social(Formerly Script Foundation)
+Open Source Developer
+May 2024 - August 2024 (4 months)
+
+
+
+- Developed a healthcare platform that improves accessibility and convenience
+by enabling users to book appointments with healthcare providers and
+specialists online.
+-Implemented a reliable medication delivery service, catering to patients with
+mobility challenges, remote locations, or busy schedules, ensuring timely
+access to essential medicines.
+- Enhanced the platform with credible healthcare content written by
+professionals, empowering users to make informed decisions while addressing
+misinformation in the healthcare industry.
+
+ISRO - Indian Space Research Organization
+Scientific Researcher (Deep Learning & Image Processing)
+January 2024 - May 2024 (5 months)
+Ahmedabad, Gujarat, India
+
+- Worked in the SIPG Department at ISRO SAC, focusing on enhancing
+satellite-based weather prediction algorithms through advanced signal and
+image processing techniques.
+- Developed robust land surface temperature (LST) and emissivity models
+using satellite imagery from seven global regions under diverse weather
+conditions.
+- Leveraged GANs, particularly Pix2Pix, for automated atmospheric predictions
+and co-authored a research paper with the scientist I collaborated with.
+
+Social Winter of Code
+Open Source Contributor
+
+January 2024 - March 2024 (3 months)
+-Participated in the SWOC (Software for Open Communities) competition,
+dedicating two months to actively contributing to open-source projects by
+addressing over 10+ issues, resulting in successful pull requests (PRs).
+-Collaborated with diverse teams to address real-world challenges,
+applying coding skills to develop innovative solutions and enhance project
+functionalities.
+
+
+
+-Demonstrated commitment to the open-source community by actively
+engaging in code reviews, bug fixes, and feature implementations, fostering
+collaboration and knowledge sharing among contributors.
+
+TECH-A-INTERN
+Machine Learning Intern
+
+November 2023 - December 2023 (2 months)
+I was actively involved in two projects aimed at enhancing predictive models
+for real-world applications. Beyond coding, my role encompassed presenting
+findings, compiling reports, and crafting visual aids to effectively communicate
+results. This comprehensive engagement not only refined my coding skills but
+also honed my abilities in data presentation and communication, fostering a
+diverse skill set tailored for practical application.
+
+Manipal University Jaipur
+Undergraduate AI Research Assistant
+
+August 2022 - December 2023 (1 year 5 months)
+Jaipur, Rajasthan, India
+- Developed reinforcement learning-powered digital twin framework under
+Prof. Satya Prakash Maurya for smart city traffic optimization in Chhattisgarh,
+projecting 20% reduction in congestion and 30% decrease in commute times
+using Python, TensorFlow, Deep Q-Networks, and real-time traffic signal
+optimization algorithms.
+- Analyzed 5+ years of urban transportation data from 20,000+ vehicles,
+implementing ML models that achieved 40% improvement in Air Quality
+Index (130 to 65 - projection) and enabled 17% increase in renewable energy
+adoption through optimized traffic flow patterns.
+- Synthesized 15 peer-reviewed publications on AI/ML in smart cities,
+contributing to research on digital twin integration with IoT sensors, big data
+analytics, and cloud computing for intelligent transportation systems and urban
+planning applications
+
+NIT Trichy
+Research Intern
+
+April 2023 - November 2023 (8 months)
+I worked under an esteemed NIT faculty and specialized in Machine Learning
+applications for the Plants and Botany sector, leveraging data-driven insights
+to enhance agricultural practices and contribute to sustainable advancements.
+
+
+Project 1- Plant Tagging Using Hybrid Semantics
+Project 2- Document Recommendation for Horticulture and Agro-Based
+Farming
+Project 3- Semantic Model for Microblog Recommendation
+
+Coding Raja Technologies
+Machine Learning Intern
+
+September 2023 - October 2023 (2 months)
+Actively participated in a project involving CNN and Deep Learning for
+recognition systems, significantly improving accuracy in classification. Gained
+substantial hands-on experience in cutting-edge machine learning techniques
+while delivering tangible results, with potential applications across various
+domains.
+
+TechnoHacks EduTech
+Machine Learning Intern
+
+September 2023 - October 2023 (2 months)
+I contributed and worked on three projects aimed at analyzing and improving
+existing solutions. The main objective was to develop and optimize predictive
+models, ensuring their suitability for real-world scenarios, ultimately promoting
+practical ease and support.
+
+Global Tech Solutions
+Artificial Intelligence and Machine Learning Intern
+September 2023 - October 2023 (2 months)
+
+I engaged in two projects, refining predictive models to be more practical and
+user-friendly for real-world applications. In addition to coding, I contributed to
+presenting results, preparing reports, and creating visual representations. This
+well-rounded involvement cultivated a diverse skill set that extended beyond
+coding into communication and data presentation.
+
+Intel Corporation
+Project Trainee
+
+June 2023 - October 2023 (5 months)
+Project 1:
+I collaborated with the Crypto Guides Team to set up a robust data pipeline for
+real-time crypto prices(Bitcoin, Litecoin, and ETH), and developed a predictive
+model, empowering their platform with AI-driven trading insights.
+Project 2:
+
+
+
+Contributed to eAuto's CV project, collecting customer demographic data and
+car brand identification at the carwash. Enhanced marketing strategies and
+auto shop services based on findings.
+Project 3:
+Collaborated with Web Helpers to enhance their e-commerce support web
+extension. Utilized NLP techniques to perform text summarization, sentiment
+analysis on product reviews, and developed a chatbot for user inquiries.
+
+Oasis Infobyte
+Data Science Intern
+
+July 2023 - August 2023 (2 months)
+I employed analytical skills and machine learning techniques to extract insights
+from data, contributing to 3 impactful projects and fostering a data-driven
+environment.
+
+CodeClause
+Web Development Intern
+
+July 2023 - August 2023 (2 months)
+I collaborated on 2 diverse projects, one being a Full Stack website with an
+external API, the 2nd being with integrated Computer Vision, honing skills in
+front-end and back-end technologies, creating responsive web solutions that
+enhanced user experiences.
+
+Code Alpha
+Web Development Intern
+
+July 2023 - August 2023 (2 months)
+I collaborated on personal and career-centric projects, refining my skills in
+front-end and back-end development, and contributing to creating user-friendly
+and responsive web solutions.
+
+Bharat Intern
+Data Science Intern
+
+July 2023 - August 2023 (2 months)
+I utilized analytical techniques and machine learning tools to extract valuable
+insights from diverse datasets. My contributions to 3 real-world projects have
+furthered my growth in the field of data science.
+
+Earth5R
+Environmental Content Writing Intern
+July 2023 - August 2023 (2 months)
+
+
+
+During my role as an environmental content writing intern at Earth5R, I
+authored insightful blogs highlighting the abundant prospects awaiting
+individuals transitioning into the environmental sector. I emphasized enhanced
+career options, active community engagement, and enriched educational
+avenues, inspiring readers to embark on this impactful journey.
+
+WictroniX
+Machine Learning Engineer Intern
+June 2023 - August 2023 (3 months)
+
+I was actively involved in a high-impact project focused on traffic and vehicle
+analysis under the esteemed Government of Gujarat, Surat. Leveraging AI
+techniques, I am excited to contribute to intelligent solutions for improved
+transportation systems.
+
+Celebal Technologies
+Data Science Intern
+
+May 2023 - August 2023 (4 months)
+I acquired hands-on experience in data analysis, modeling, and visualization,
+supporting real-world projects and advancing my proficiency in data-driven
+decision-making, under the excellent mentorship of the Celebal Team.
+
+Turing Sapiens
+2 years 10 months
+
+Deputy Technical Head
+
+August 2022 - August 2023 (1 year 1 month)
+I assumed a key leadership role in overseeing and coordinating technical
+initiatives, guiding the team towards successful project and event execution,
+and fostering a culture of innovation and excellence.
+
+Member
+
+November 2020 - August 2023 (2 years 10 months)
+
+Marpu Foundation | NGO
+Content Writing Intern
+
+July 2023 - July 2023 (1 month)
+During my internship at Marpu Foundation, I dedicated myself to researching
+and composing engaging blogs focused on vital environmental issues and
+the significance of corporate social responsibility. Through my work, I aimed
+to amplify awareness and inspire action for a greener and more responsible
+future.
+
+
+Suvidha Foundation (Suvidha Mahila Mandal)
+Technical Content Writing Intern
+June 2023 - July 2023 (2 months)
+
+I crafted engaging and informative content, simplifying complex technical
+concepts and unveiling secrets of the NGO domain, hence contributing to the
+dissemination of knowledge in the tech industry.
+
+IBM
+Artificial Intelligence Mentee
+
+June 2023 - July 2023 (2 months)
+I actively engaged in learning and collaborating with experienced AI
+professionals of the IBM Team, expanding my knowledge and skills
+to contribute effectively to cutting-edge and real-life AI projects and
+advancements.
+
+Salesforce
+Salesforce Developer Trainee
+
+May 2023 - July 2023 (3 months)
+During the internship period spanning from May to July 2023, I was tasked with
+undertaking the following projects and modules.
+Salesforce Fundamentals
+Organizational Setup
+Relationship & Process Automation
+Types Of Flows & Security
+Apex, Testing & Debugging
+VS Code Setup & CLI Setup
+Lightning Web Components (LWC) & API
+Developer Super Set
+Assisting in Salesforce app development using Apex and Lightning Web
+Components.
+Practical hands-on experience with Salesforce development tools and agile
+practices.
+Exposure to real projects and collaboration with experienced mentors.
+
+Internshala
+Student Ambassador
+
+May 2023 - June 2023 (2 months)
+
+
+
+I represented my institution with enthusiasm, promoting its values, events, and
+opportunities. I fostered connections, empowering fellow students to thrive in
+their academic and personal journeys. Mentored and guided students about
+effective career growth and the best way to learn.
+
+The Sparks Foundation
+Data Science and Business Analytics Intern
+May 2023 - June 2023 (2 months)
+
+I harnessed data-driven insights to support critical decision-making processes,
+bridging the gap between data and business strategies. Contributing to 3
+impactful projects and fostering a data-driven culture.
+
+LetsGrowMore
+Data Science Intern
+
+May 2023 - June 2023 (2 months)
+I developed and applied analytical skills and machine learning techniques to
+extract valuable insights from data. This experience allowed me to contribute
+to 3 impactful projects and gain practical expertise in the field of data science.
+
+Hacktoberfest
+Open Source Mentor and Contributor
+October 2022 - October 2022 (1 month)
+
+As an Open Source Mentor in the Hacktoberfest 2022 organizing team, I
+leveraged my expertise in open-source and web development to curate a
+rewarding event, fostering collaboration and contributions from a vibrant
+community of developers and contributors.
+
+SpicMacay APAC
+Promotions Lead
+
+September 2022 - September 2022 (1 month)
+I strategized and executed dynamic marketing campaigns, driving club visibility
+and engagement. Leveraging data-driven insights, I spearheaded promotional
+efforts to reach wider audiences and achieve club growth.
+
+Younity.in
+Business Development and Research Specialist
+July 2022 - August 2022 (2 months)
+
+I strategically identified growth opportunities and conducted in-depth research
+to support informed decision-making. Contributed to driving business
+expansion and achieving organizational objectives.
+
+
+GirlScript Summer of Code
+Open Source Contributor
+
+March 2022 - May 2022 (3 months)
+As an Open Source Contributor, I took an active and collaborative approach
+to make significant contributions across various projects. Working alongside
+fellow developers, I played a crucial role in bolstering the growth and impact of
+these open-source initiatives.
+
+GirlScript Winter of Contributing
+Open Source Contributor
+
+September 2021 - November 2021 (3 months)
+Was recognized as one of the Top Contributors in the Python domain. It's
+an honor to have received the Open Source Contribution recognition from
+GirlScript Winter of Code. I actively contributed to open-source projects,
+showing my expertise and passion for improving the Python ecosystem.
+
+Career Domain
+Social Media Marketing Intern
+July 2021 - July 2021 (1 month)
+
+I strategized and executed impactful campaigns, engaging the audience, and
+driving brand awareness. Contributed to the growth of the company's online
+presence mainly through Social Media platforms like Instagram and Facebook.
+
+Education
+Northeastern University
+Master of Science - MS, Artificial Intelligence (Khoury College of Computer
+Sciences) · (September 2024 - December 2026)
+
+Y Combinator
+Startup School, Entrepreneurship/Entrepreneurial Studies · (June
+2025 - October 2025)
+
+Manipal University Jaipur
+Bachelor of Technology - BTech, Computer Science (Minor - Data
+Science) · (October 2020 - June 2024)
+
+Apeejay School
+Computer Science · (July 2018 - March 2020)
+
+
+Ryan International School, Navi Mumbai
+Computer Science · (2013 - 2018)
+
+
+

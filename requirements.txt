@@ -1,0 +1,4 @@
+requests>=2.31
+PyYAML>=6.0
+tzdata; platform_system == "Windows"
+# anthropic>=0.40   # only if you switch llm.provider to anthropic

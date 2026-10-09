@@ -1,0 +1,180 @@
+# AATMAJ AMOL SALUNKE — MASTER WORK EXPERIENCES
+
+> This document contains ALL work experiences with every bullet point variation available for tailoring.
+> The bot should select 3 experiences and pick/adapt the best bullet versions per role.
+
+---
+
+## EXP-1: AI Software Engineer Research Assistant
+**Organization:** DASH Lab
+**Location:** Boston, MA, USA
+**Dates:** Sept 2025 – Present
+**Domain:** AI/ML, RAG, Agentic AI, EdTech, LLMs, Local Server
+
+### Bullet Variants:
+- Built on-premise multi-user RAG-based AI Teaching Assistant for Northeastern University students using FastAPI, React, LlamaIndex, QDrant, Flask and local LLMs (Gemma and Llama) via Ollama/vLLM with dual-model hallucination input and output guardrails, hybrid PostgreSQL–NoSQL architecture, and SQLAlchemy connection pool manager enabling efficient database pooling across 1,000+ concurrent sessions.
+- Developed an on-premise, multi-user RAG-based AI Teaching Assistant for Northeastern University students using FastAPI, React, LlamaIndex, QDrant, Flask and local LLMs (Gemma and Llama) via Ollama/vLLM, integrating dual-model hallucination input and output guardrails, PostgreSQL backend with SQLAlchemy connection pooling for optimized multi-user database throughput, and analytics-driven student–faculty interaction tracking.
+- Led the lab's first successful production product launch, delivering an all-in-one Canvas-integrated educational platform serving 3+ faculty and 500+ students across the university, unifying an AI Teaching Assistant, AI-assisted assignment grading, and AI video/presentation submission grading into a single platform, scaling to 1,000+ concurrent students under load on on-premise GPU servers.
+- Architected Canvas LMS integration using the Canvas REST API with faculty-supplied Access Tokens (Fernet-encrypted at rest), automating migration and indexing of modules, assignments, pages, quizzes, syllabi, and reading files via a paginated fetch pipeline, with 30-minute server-side re-sync workers and graded-score pushback mapped to Canvas rubric criteria.
+- Engineered an asynchronous chat-processing pipeline using RabbitMQ (aio_pika) with 5 worker replicas × 10-thread executors for 50 concurrent dispatches, implementing per-message timeout budgets, dead-letter queue redelivery, and a circuit-breaker sync-fallback that routes chat directly to the LLM when the broker is unreachable, ensuring zero-downtime operation under peak load.
+- Built a fault-tolerant document indexing pipeline offloading compute-intensive Docling parsing, LlamaIndex semantic chunking, and nomic-embed-text-v1.5 GPU embedding off the event loop via asyncio.to_thread, upserting into Qdrant for hybrid retrieval with Reciprocal Rank Fusion (RRF) and optional cross-encoder reranking across multiple concurrent users.
+- Developing an agentic AI Digital Twin using LangGraph, vLLM, RAG pipelines, OpenDevin agents, and vectorized memory graphs to emulate human cognition, style, and reasoning, with dynamic long- and short-context window management for natural, context-aware conversational flow, enabling autonomous meeting participation, contextual task execution, and adaptive decision-making.
+- Developed AuditBOT, an AI-powered Professional Challenge Advisor using Next.js, TypeScript, and Claude API enabling accounting students to practice ethical decision-making through realistic scenarios, dual-mode AI guidance (supportive/skeptical), structured escalation frameworks, and LLM-based qualitative learning analytics tracking engagement depth, progression, and justification quality across 500+ user sessions.
+- Architected a comprehensive admin dashboard with real-time quantitative and qualitative analytics including AI consultation rates, decision scoring, confidence calibration, demographic breakdowns, and LLM-driven engagement metrics, providing faculty researchers with exportable insights on student learning outcomes and ethical reasoning development.
+- Designed and deployed on-premise AI infrastructure from scratch, configuring 3 GPU servers — 1x NVIDIA A6000 (Lite), 2x NVIDIA Blackwell GPUs (Pro), and 2x NVIDIA Blackwell GPUs (Ultra) with AMD Threadripper Pro processors — hosting vLLM inference behind Nginx reverse proxy with load balancing, CI/CD pipelines, and PM2 process management for automated deployments, zero-downtime restarts, and 99.9% uptime across all research applications with zero cloud dependency.
+- Built and maintained a self-hosted vLLM inference stack across 3 on-premise GPU servers with Nginx as reverse proxy and load balancer, managed via PM2 process orchestration and CI/CD automated deployment pipelines, eliminating cloud dependency for LLM serving and achieving sub-200ms inference latency for Llama 70B and 120B-parameter models, supporting concurrent multi-user RAG, AuditBOT, and Digital Twin workloads with automatic failover.
+- Engineered a scalable microservices architecture using Nginx reverse proxy, RabbitMQ message queues, Redis caching, Celery distributed task workers, and PM2 process management with CI/CD pipelines for continuous deployment, enabling 1,000+ concurrent user sessions across LearnBOT, AuditBOT, and Digital Twin services with 99.5% uptime, sub-500ms API response times, and zero message loss under peak load.
+- Implemented asynchronous task orchestration pipelines using RabbitMQ for inter-service communication and Celery for background job processing (LLM inference, document embedding, analytics computation), with Redis as both a result backend and session cache, routed through Nginx load-balanced endpoints and orchestrated via PM2 with CI/CD-automated rollouts, reducing average request latency by 65% and supporting horizontal scaling across 3 on-premise GPU servers.
+- Implemented an LLM fallback orchestrator with retryable-error classification (5xx, timeout, rate-limit 429, overloaded 529) driving a primary-to-secondary provider cascade across self-hosted Gemma (vLLM) and Anthropic Claude, plus a Redis dual-write reconnect buffer for resumable SSE token-streaming with graceful degradation to direct streaming when Redis is unreachable.
+
+
+---
+
+## EXP-2: AI Engineer
+**Organization:** Borealis Global Advisory LLC
+**Location:** South Carolina, USA
+**Dates:** May 2025 – Dec 2025
+**Domain:** Quant Finance, NLP, Multi-Agent AI, Data Pipelines, Analytics
+
+### Bullet Variants:
+- Developed multi-agent AI forecasting system using Google ADK, orchestrating 15 specialized agents with access to 5 integrated data sources (yfinance, News API, Pinecone-RAG knowledge base, PostgreSQL sentiment databases, and macro-economic indicators) across 100+ countries, implementing inter-agent debate protocols with persistent memory, PgBouncer connection pooling for database load balancing, and comprehensive DDL-based audit logging tracking every workflow decision to PostgreSQL for full traceability and compliance, generating institutional-grade MSCI country-level portfolio allocations.
+- Engineered fault-tolerant asynchronous system architecture for the multi-agent forecasting pipeline with fully async API orchestration, exponential backoff retry logic, transactional rollback mechanisms, and Redis caching, achieving 3x performance improvement through parallel agent execution while ensuring zero data loss and automatic recovery from upstream API failures, rate limits, and network interruptions across all 5 data source integrations.
+- Managed and processed 3TB+ of financial data across AWS infrastructure (EC2, Lambda, S3), deploying automated Selenium scraping workers across multiple EC2 instances for continuous market data ingestion, resolving hosting, DNS, and SSL certificate challenges while collaborating cross-functionally on UI/UX design, backend architecture, and production deployment workflows for client-facing analytics platforms.
+- Orchestrated country-level sector-wise macro allocation pipelines using Google ADK for multi-agent coordination, applying fundamental financial principles (MSCI frameworks, risk-parity models, SHARPE ratio, Black-Litterman mode) to generate institutional-grade portfolio recommendations across 100+ countries with automated rebalancing and backtesting.
+- Gained hands-on experience across the full cloud and application stack including AWS EC2 instance management, Lambda serverless functions, S3 data lake architecture, SSL/DNS configuration, and UI/UX prototyping, demonstrating versatility in end-to-end product development beyond core ML/NLP responsibilities.
+- Authored comprehensive technical whitepaper and workflow documentation using LaTeX and Adobe InDesign, detailing methodology, market analysis, and actionable insights for product TAM and GTM strategy, accelerating strategic decision-making and stakeholder alignment across cross-functional teams.
+- Engineered large-scale academic and business intelligence pipeline using custom Python scripts to process, classify, and structure 2TB+ of academic papers and business case studies into searchable, actionable datasets, enabling rapid knowledge retrieval across all downstream applications and features.
+- Migrated legacy rule-based decision system to a modern graph-based decision tree architecture with RAG capabilities using LangChain and pgvector on PostgreSQL, improving query accuracy by 40% and reducing average response latency by 60% compared to the previous keyword-matching approach.
+- Deployed and managed multiple concurrent AWS EC2 instances running automated Selenium web scraping workers to continuously collect, validate, and ingest market intelligence and financial data into the company's PostgreSQL database, processing 50K+ records daily with fault-tolerant retry logic and automated scheduling.
+
+---
+
+## EXP-3: Scientific Researcher
+**Organization:** ISRO – Indian Space Research Organization (SAC)
+**Location:** Ahmedabad, Gujarat, India
+**Dates:** Jan 2024 – May 2024
+**Domain:** Remote Sensing, Deep Learning, GANs, Computer Vision, Signal/Image Processing
+
+### Bullet Variants:
+- Developed high-fidelity land surface temperature (LST) and emissivity inversion algorithms using Pix2Pix-inspired cGANs, building ETL pipelines to ingest, preprocess, and harmonize MODIS, Landsat, and Sentinel-2 satellite data across 7 regions (~200K+ data points). Achieved 15% improvement in predictive accuracy, collaborated with senior scientists on a novel research approach, and contributed to a research paper under review proposing new atmospheric parameter estimation techniques.
+- Collaborated with senior scientists to design a multi-modal research platform for atmospheric prediction, leveraging CUDA acceleration, TensorFlow/PyTorch, and LaTeX for structured research writing and reproducibility.
+- Built end-to-end ML research pipelines using Python, PyTorch, CUDA acceleration, engineering ETL workflows for multi-spectral satellite data ingestion, preprocessing, and feature extraction, while maintaining reproducible workflows via Docker, GitHub version control, and LaTeX documentation, aligning with edge ML and high-performance computing practices.
+- Executed large-scale model training and satellite imagery processing on high-performance on premise security locked computing infrastructure including NVIDIA H100 and Tesla GPUs with enterprise-grade Intel processors, fine-tuning cGAN architectures on multi-spectral datasets requiring 200+ GPU-hours of computation per experimental run.
+- Leveraged NVIDIA H100 and Tesla GPU clusters for distributed training of atmospheric prediction models on terabyte-scale satellite imagery, designing automated ETL pipelines for multi-source data fusion and optimizing CUDA kernels and mixed-precision training pipelines to reduce training time by 40% while maintaining state-of-the-art prediction accuracy across 7 diverse geographic regions.
+
+
+
+
+---
+
+## EXP-4: Machine Learning Engineer
+**Organization:** WictroniX
+**Location:** Vadodara, Gujarat, India
+**Dates:** June 2023 – Aug 2023
+**Domain:** Computer Vision, Data Annotation, Smart City, Traffic Analysis
+
+### Bullet Variants:
+- Engineered a scalable computer vision data pipeline for a Government of Gujarat Smart City initiative, building automated annotation workflows using Python, OpenCV, and LabelImg to process 2,000+ high-resolution drone imagery datasets across 100 Surat junctions, implementing a seven-tier vehicle ontology (Bus, Cars, LCV, M2W, MAV, Rickshaw, Truck) with structured metadata tagging and bounding box validation scripts achieving 95%+ annotation consistency for downstream object detection model training.
+- Designed and maintained a version-controlled, enterprise-secure annotated dataset with rigorous data governance protocols, implementing stratified 70/20/10 train-validation-test splits with distribution balancing across vehicle classes and junction types, establishing data quality checkpoints using automated outlier detection and inter-annotator agreement scoring (Cohen's Kappa) to ensure model-ready dataset integrity for the ML development team.
+- Collaborated on end-to-end MLOps infrastructure for traffic monitoring services, contributing to CI/CD pipeline design using Docker and GitHub Actions for automated model deployment, defining KPIs for traffic density estimation and vehicle flow analysis, and delivering exploratory spatial-temporal analytics using Pandas, Matplotlib, and GeoPandas to identify congestion hotspots and peak-hour traffic patterns across 100 urban junctions informing municipal infrastructure optimization decisions.
+
+---
+
+## EXP-5: Salesforce Developer Trainee
+**Organization:** Salesforce
+**Location:** Jaipur, Rajasthan, India
+**Dates:** May 2023 – July 2023
+**Domain:** Salesforce Development, CRM, API Integration, Enterprise Software
+
+### Bullet Variants:
+- Developed scalable Salesforce applications using Apex object-oriented programming and Lightning Web Components (LWC), implementing declarative automation through Process Builder and Flow Builder, configuring complex relationship models, role-based access control, and permission set security architectures within enterprise CRM environments, improving operational efficiency by 30% and reducing manual workflow processing time across organizational units.
+- Engineered secure Salesforce integrations with external systems using RESTful API callouts, OAuth 2.0 authentication, and JSON/XML data transformation pipelines, implementing comprehensive error handling with try-catch-finally patterns, governor limit optimization, and bulk data processing triggers, reducing system errors by 25% and ensuring data integrity compliance across 10+ connected enterprise applications.
+- Built and deployed full-stack Salesforce solutions across the complete development lifecycle using VS Code with Salesforce CLI, writing Apex test classes achieving 85%+ code coverage, performing unit testing and debugging with Developer Console and Debug Logs, and managing version-controlled deployments through agile sprint workflows with experienced development teams, gaining hands-on proficiency across organizational setup, process automation, security configuration, and Lightning component architecture.
+
+---
+
+## EXP-6: Senator of Technology
+**Organization:** Graduate Student Government, Northeastern University
+**Location:** Boston, MA, USA
+**Dates:** Jan 2026 – Present
+**Domain:** Leadership, Technology Strategy, Student Government, Cross-Functional Collaboration
+
+### Bullet Variants:
+- Serving as Senator of Technology in the Graduate Student Government at Northeastern University, representing 15,000+ graduate students by evaluating campus-wide technology initiatives, advocating for improved digital infrastructure, and bridging communication between student body and university IT leadership, while leading cross-functional committees to assess and recommend technology policy changes impacting graduate student resources, digital accessibility, and AI tool governance policies.
+- Managing and maintaining the GSG website with 99.9% uptime, performing regular updates, security patches, and performance optimization, while designing and deploying interactive event webpages for GSG-hosted events using responsive web development practices, ensuring seamless user experience and real-time event registration functionality for 15,000+ graduate students.
+- Overseeing end-to-end technical operations across all GSG digital platforms, curating and publishing weekly newsletter updates, triaging and resolving cross-platform technical issues including broken integrations, CMS bugs, and email delivery failures, and spearheading technology-focused town halls synthesizing input from 500+ graduate students to shape university IT roadmap priorities including cloud computing access, GPU cluster availability for research, and open-source tool adoption.
+
+---
+
+## EXP-7: Campus Ambassador
+**Organization:** Adobe
+**Location:** Boston, MA, USA
+**Dates:** Aug 2025 – Present
+**Domain:** Product Advocacy, Community Building, Workshops, Creative Tools, Leadership
+
+### Bullet Variants:
+- Leading campus-wide awareness campaigns for Adobe's creative tools by organizing hands-on workshops, peer-learning sessions, and pop-up events, driving 300+ student engagements and increasing Adobe tool adoption by 40% across academic and creative workflows at Northeastern University.
+- Collaborating with 10+ student groups, academic departments, and creative clubs to integrate Adobe's suite into campus life, enhancing digital literacy and building a community focused on creativity, innovation, and peer-driven skill development.
+- Developing and executing outreach strategies combining product demonstrations, social media campaigns, and cross-departmental partnerships, strengthening Adobe's brand presence on campus while mentoring students on leveraging creative tools for portfolio development and project presentations.
+
+---
+
+## EXP-8: AI Training Data Engineer
+**Organization:** LiquidPixels, Inc. (makers of LiquiFire OS)
+**Location:** Billerica, MA, USA
+**Dates:** May 2026 – Aug 2026
+**Domain:** AI/ML, RAG, Multi-Agent / LLM Orchestration, Vector Search, Synthetic Data, Eval & Benchmarking, DSL/Code Generation, Application Security, Platform Engineering, Technical Documentation
+
+### Bullet Variants:
+- Architected a dual-path LLM system — a LangGraph orchestrator and an agentic tool-loop over 9 typed tools — converged onto one shared engine spanning intent classification, hybrid RAG retrieval, static validation, bounded render-repair, and an optimizer, served by Qwen3-Coder-30B on self-hosted vLLM behind a FastAPI/Pydantic backend.
+- Built a FastAPI/Pydantic backend and React/TypeScript frontend across 68 authenticated HTTP operations, backed by a 2,440-test regression suite gating every change.
+- Engineered a retrieval pipeline over a 2,035-chunk Qdrant index spanning 8 semantic categories, fusing dense BGE-large embeddings with BM25 via reciprocal-rank fusion and cross-encoder reranking, translating natural language into validated LiquiFire OS imaging chains.
+- Designed a four-way intent pipeline (GENERATE / EXPLAIN / MODIFY / REPAIR) reaching 94.3% (50/53) on the core regression set with zero-regression gating, instrumented with per-node latency telemetry and never-500 route robustness.
+- Built a synthetic GOLD-corpus generation pipeline (lint → ground → render gate) and a 5-tier layered evaluation harness (validity, structural, assertion, LLM-judge, visual) over a 60-case benchmark, gating every change against a frozen baseline.
+- Diagnosed an 8-database, 14-table user-data topology and built a single-transaction cross-database deletion tool using SQLite ATTACH, empirically proving atomic rollback across all 8 files rather than assuming it.
+- Benchmarked 5 model configurations (Qwen2.5-Coder-14B, Qwen3-Coder-30B, GPT-5.6 at three reasoning tiers) on a 25-case suite, establishing that prompt-scaffold ablation cost 48 render-coverage points — 2.4× the impact of any model upgrade — and that open-weight models matched frontier API parity within noise at zero marginal cost.
+- Proved reasoning-effort escalation a dead end through controlled ablation: identical output quality at +37% token cost, redirecting effort from inference spend to corpus and prompt engineering.
+- Lifted render coverage from 11.7% to 65.0% by isolating a missing S3 credential as the root cause, correctly attributing a 5× apparent quality gap to an infrastructure defect rather than model capability.
+- Ran the first internal beta across 8 users and 41 real generations, measuring 33% render coverage on unseen prompts against a 52–76% internal-suite figure — establishing the first honest generalisation baseline and tracing 56% of all failures to a single false sentence in one system prompt.
+- Refuted a corpus-competition hypothesis with a retrieval-ablation control run, preventing a wasted multi-day corpus audit and correctly locating the failure in the model's pretrained prior.
+- Discovered and remediated a critical privilege-escalation vulnerability where case-sensitive identity creation combined with case-insensitive authorization granted full admin access in two unauthenticated requests, shipping a canonicalising migration across users and sessions with a unique lower-case index.
+- Led a 19-finding security review across authentication, authorization, injection, secrets and supply chain, closing 5 pre-beta blockers — SSRF-capable model-endpoint controls, signup rate limiting, lockout-based denial of service, unauthenticated framework documentation endpoints — and producing a 22-page system report plus a 4-page review package for security sign-off.
+- Consolidated a split-brain authorization model into a single database source of truth across 18 permissions and 6 roles, eliminating a class of failure where revoking a role in the UI silently did nothing, and building the CLI bootstrap path that made the environment allowlist removable.
+- Audited 546 commits of git history for committed credentials, identifying a live API key in plaintext and driving its rotation; distinguished disclosure from compromise across two AWS key IDs by verifying no secret half existed via three independent methods.
+- Closed a credential-egress path where 127 of 582 corpus chunks carried AWS keys, customer identifiers and internal hostnames into third-party model prompts, shipping shape-preserving redaction across 6 formatter sites at 0.05% text cost with zero taught patterns lost.
+- Hardened the API surface with security-header middleware, a resource-derived Content-Security-Policy, dependency advisory scanning in CI, and 9 reporting suites over 500+ security-specific tests.
+- Eliminated a silent data-loss defect where conversation history existed only in browser storage while a complete server-side copy went unread, making the server authoritative with backfill-only merge semantics and S3-backed render restoration.
+- Built a self-healing systemd guard that repairs proxy routing wiped by appliance upgrades within 2 minutes, closing a recurring outage class that had cost 6 hours of downtime, and validated it against a synthetic config where it exposed a routing bug that would have passed validation while routing incorrectly.
+- Converted a crash-looping startup dependency into a boot-time warning, reducing mandatory pod credentials from 5 to 2 and enabling a first-run experience where an operator configures the model through the admin portal rather than editing environment files.
+- Made corpus reindexing non-destructive by replacing a collection drop with a provenance-filtered sweep, eliminating permanent loss of admin-uploaded documents and correcting a false safety claim propagated across code comments and reference documentation.
+- Built an admin-vouched password reset with forced first-login rotation and server-enforced gating, closing a total-lockout gap in a system with no mail path, and refusing the identity-free reset flow that would have let any visitor claim any account.
+- Authored a 30-document technical knowledge base including an architecture map, extension guide, improvement-loop procedure, and 58-entry decision ledger, enabling a full handover of the system.
+- Dog-fooded the installation path twice, including a run under a fresh account on a Linux host with no application tooling, surfacing 4 blocking defects invisible to code review: a stale container surviving an image rebuild, a missing runtime prerequisite, a destructive command recommended by the documentation, and an unset environment variable in the setup guide.
+- Established a repeatable improvement loop — feedback to layer diagnosis to eval case to measured delta — documented across 5 worked loops including the one that failed and why, and codified the tests that appear redundant but hold real defects shut.
+- Delivered a full architecture and operations handover across 4 sessions, transferring credential ownership, deployment procedure, and 11 prioritised next steps with named owners and infrastructure dependencies separated from application work.
+
+---
+
+## EXP-9: Google Summer of Code 2026 Contributor
+**Organization:** ML4SCI DeepLense
+**Location:** Remote, USA
+**Dates:** May 2026 – Sept 2026
+**Domain:** Agentic AI, Multi-Agent Systems, LLM Agents, Pydantic AI, Neural Architecture Search, AI Evaluation, Scientific ML, Docker, Gravitational Lensing, Open Source, Python
+### Bullet Variants:
+
+- Architected an autonomous multi-agent "AI Scientist" pipeline spanning 6 specialized stages (data simulation → model design → training → inference → analysis → experiment planner) on Pydantic AI, closing a feedback loop that proposes, trains, evaluates, and refines ML models for strong gravitational-lensing research with zero human intervention per iteration.
+- Discovered a 1.19M-parameter CNN via autonomous architecture search that outperformed a hand-picked 21.28M-parameter ResNet-34 by 2.0 points of held-out test accuracy (92.64% vs 90.66%) at 17.9× fewer parameters, replicated across 2 seeds under an identical tuning protocol on a 1,800-image test set verified hash-disjoint from training data.
+- Redesigned a single-pass architecture search into a 3-round iterative beam search (10 candidates → LLM-as-judge shortlist of 4 → real short training → prune → results fed forward into the next round's generation), directly yielding the winning model: round 1 plateaued at 90.33% while round 3 produced the 92.64% architecture the prior design would never have reached.
+- Expanded the buildable architecture space from 2 to 6 model families (plain CNN, ResNet, Vision Transformer, MLP-Mixer, conv-attention hybrid, C4 group-equivariant), implementing and verifying each in PyTorch — including a group-equivariant convnet validated to exact rotational invariance (~5e-7 at 150px) after fixing two silent equivariance-breaking defects surfaced by testing rather than inspection.
+- Engineered a version-grounded, sandboxed LLM code-generation agent that converts natural-language physics specifications into executable lenstronomy 1.9.2 simulation code, lifting pass rate from 83.3% to 98.8% (Wilson 95% CI [93.6, 99.8], non-overlapping) across a controlled 168-run two-arm ablation by embedding an introspection-generated, version-pinned API reference in the prompt.
+- Identified and characterized "version blending" as the dominant LLM failure mode on scientific software — models emitting code correct for a different library release rather than hallucinating APIs — accounting for 55 of 76 failed attempts and 11 of 14 unrecovered failures in the ungrounded arm, with degradation localized to version-pinned interfaces (19/27) while generic library usage was unaffected (11/12).
+- Hardened untrusted code execution in a locked-down Docker sandbox (non-root uid, network disabled, 2GB memory / 1 CPU / 256-process caps, hard timeout, single mounted job directory), verifying every isolation property empirically from inside the production execution path rather than trusting configuration flags.
+- Built a 3-layer deterministic verification stack — structural output checks, physical-plausibility validation across 19 field-level constraints, and AST-level binding verification that the generated program actually uses the approved parameters — catching a program that executed cleanly and produced a valid image while silently diverging from its specification.
+- Conducted a 5-experiment reliability audit of the pipeline's own LLM decisions, discovering that the loop's termination was decided by an imperative guard before the planner was ever queried yet logged as an agent decision; that the planner returned an identical action in 80 of 80 trials across 4 distinct states, misapplying regularization to an underfitting model in 19 of 20; and that the LLM judge was highly stable (Kendall τ = 0.927) yet non-predictive, its top-ranked candidate placing 8th of 10 once all candidates were trained.
+- Measured a ~700× family-dependent bias in low-fidelity architecture evaluation (convolutional models gaining 0.0004 vs attention models 0.27 from 10→25 epochs), demonstrating across 10/25/50-epoch sweeps that no fixed training budget fairly compares heterogeneous architecture families — establishing that rank correlation alone is an inadequate diagnostic for search-proxy validity.
+- Generated a 9,000-image labeled training corpus (3,000 per class across 3 dark-matter substructure classes, 150×150px) through the sandboxed generate-execute-validate stack with zero failed realizations, and replaced a placeholder classifier with real PyTorch training on Apple-silicon MPS, completing a full search-and-tune cycle in 21 minutes on a single laptop with no cluster access.
+- Engineered the framework's agent layer in Python (managed with uv/hatchling, linted with ruff, tested with pytest) using typed Pydantic I/O contracts, human-in-the-loop approval gates (Pydantic AI DeferredToolRequests), and a fully offline test path (mock simulation backends + scripted FunctionModel), shipping 17 reviewed pull requests and growing the CI-tested (GitHub Actions) suite to 121 passing tests.
+- Implemented a model-agnostic, local-first inference layer that runs the agents on local LLMs via Ollama (qwen3:8b, gpt-oss:20b) or hosted APIs (OpenAI GPT-5.2) through a single env-driven config, and migrated the codebase to Pydantic AI v2 across 3 dependent feature branches.
+- Diagnosed and corrected a data error propagated across 4 files and 6 downstream claims (a baseline's parameter count recorded as 11.17M when checkpoint byte-size analysis proved 21.28M), plus a convergence-guard defect that scored a collapsed chance-level model as successfully converged — both merged upstream with the verifying evidence documented.
+- Enforced experimental discipline throughout: a held-out test set structurally quarantined in code and evaluated exactly once post-selection, deterministic seeding with per-seed reproducibility verification, validator thresholds calibrated against 10,800 measured reference images rather than assumed, and a discarded GPU-faulted training run whose clean re-run proved 0.94 points optimistic.
+- Co-authored 6 workshop papers from this work, with 1 accepted and selected as a Spotlight talk at the AAAI 2026 Fall Symposium Series (Symposium on Parsimonious Scientific ML: "DLens: Closed-Loop AI Agents for Parsimonious Scientific Machine Learning in Dark Matter Gravitational Lensing") and 5 under review (AAAI 2026 Fall Symposium on Trustworthy Agentic Systems, 2 at the NeurIPS 2026 IAEval Workshop on Evaluation of Interactive Agents, Sim2Science, and ML4PS), spanning autonomous architecture discovery, agent decision auditing, sandboxed scientific code generation, and grader calibration.

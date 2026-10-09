@@ -1,0 +1,8 @@
+.env
+out/
+state/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+job-radar.zip

@@ -1,0 +1,236 @@
+# Companies the radar checks every run (about every 15 minutes). The radar ALSO finds up to 2,000 more boards on its own from the
+# Simplify new grad feed, so this list doesn't need to be complete. Entries that don't exist
+# switch themselves off after 3 misses. Run the workflow with mode "validate" to see which ones.
+# Add one by copying a line: greenhouse/lever/ashby use the board name from the careers link,
+# workday uses the career site link.
+
+greenhouse:   # boards.greenhouse.io/<name>
+  # AI first
+  anthropic: Anthropic
+  scaleai: Scale AI
+  databricks: Databricks
+  gleanwork: Glean
+  coreweave: CoreWeave
+  snorkelai: Snorkel AI
+  figureai: Figure AI
+  andurilindustries: Anduril
+  waymo: Waymo
+  nuro: Nuro
+  flyzipline: Zipline
+  spacex: SpaceX
+  # Developer tools, data, infra
+  datadog: Datadog
+  mongodb: MongoDB
+  cloudflare: Cloudflare
+  twilio: Twilio
+  gitlab: GitLab
+  elastic: Elastic
+  fivetran: Fivetran
+  okta: Okta
+  rubrik: Rubrik
+  purestorage: Pure Storage
+  abnormalsecurity: Abnormal Security
+  vercel: Vercel
+  webflow: Webflow
+  airtable: Airtable
+  asana: Asana
+  figma: Figma
+  samsara: Samsara
+  # Consumer
+  airbnb: Airbnb
+  pinterest: Pinterest
+  reddit: Reddit
+  discord: Discord
+  dropbox: Dropbox
+  lyft: Lyft
+  instacart: Instacart
+  roblox: Roblox
+  duolingo: Duolingo
+  twitch: Twitch
+  squarespace: Squarespace
+  khanacademy: Khan Academy
+  coursera: Coursera
+  # Fintech and trading
+  stripe: Stripe
+  robinhood: Robinhood
+  coinbase: Coinbase
+  brex: Brex
+  affirm: Affirm
+  chime: Chime
+  sofi: SoFi
+  gusto: Gusto
+  carta: Carta
+  mercury: Mercury
+  point72: Point72
+  wehrtyou: Hudson River Trading
+  jumptrading: Jump Trading
+  imc: IMC Trading
+  # More AI, data and infra
+  starburst: Starburst
+  cockroachlabs: Cockroach Labs
+  grafanalabs: Grafana Labs
+  newrelic: New Relic
+  pagerduty: PagerDuty
+  launchdarkly: LaunchDarkly
+  circleci: CircleCI
+  fastly: Fastly
+  wizinc: Wiz
+  # More product and SaaS
+  mixpanel: Mixpanel
+  braze: Braze
+  attentive: Attentive
+  calendly: Calendly
+  boxinc: Box
+  lattice: Lattice
+  checkr: Checkr
+  justworks: Justworks
+  # More consumer, media and games
+  nextdoor: Nextdoor
+  medium: Medium
+  seatgeek: SeatGeek
+  peloton: Peloton
+  riotgames: Riot Games
+  epicgames: Epic Games
+  # More fintech and trading
+  betterment: Betterment
+  adyen: Adyen
+  gemini: Gemini
+  ripple: Ripple
+  akunacapital: Akuna Capital
+  towerresearchcapital: Tower Research Capital
+  # Autonomy and space
+  relativity: Relativity Space
+  planetlabs: Planet
+  astranis: Astranis
+  # Health and bio
+  oscar: Oscar Health
+  flatironhealth: Flatiron Health
+  zocdoc: Zocdoc
+  recursionpharmaceuticals: Recursion
+  # Marketplaces, health, hardware
+  flexport: Flexport
+  faire: Faire
+  verkada: Verkada
+  # Boston area
+  klaviyo: Klaviyo
+  toast: Toast
+  formlabs: Formlabs
+  lightmatter: Lightmatter
+  motional: Motional
+  pathai: PathAI
+  ginkgobioworks: Ginkgo Bioworks
+  recordedfuture: Recorded Future
+  cargurus: CarGurus
+  everquote: EverQuote
+  ezcaterinc: ezCater
+  simplisafe: SimpliSafe
+  markforged: Markforged
+
+lever:        # jobs.lever.co/<name>
+  palantir: Palantir
+  spotify: Spotify
+  zoox: Zoox
+  mistral: Mistral AI
+  shieldai: Shield AI
+  whoop: WHOOP
+  wealthfront: Wealthfront
+
+ashby:        # jobs.ashbyhq.com/<name>
+  openai: OpenAI
+  cohere: Cohere
+  perplexity: Perplexity
+  elevenlabs: ElevenLabs
+  langchain: LangChain
+  replit: Replit
+  notion: Notion
+  ramp: Ramp
+  linear: Linear
+  supabase: Supabase
+  posthog: PostHog
+  cognition: Cognition
+  modal: Modal
+  baseten: Baseten
+  harvey: Harvey
+  sierra: Sierra
+  decagon: Decagon
+  hebbia-ai: Hebbia
+  writer: Writer
+  abridge: Abridge
+  pinecone: Pinecone
+  cursor: Cursor
+  lambda: Lambda
+  suno: Suno
+  factory: Factory
+  mercor: Mercor
+  vanta: Vanta
+  airbyte: Airbyte
+  hightouch: Hightouch
+  warp: Warp
+  applied: Applied Intuition
+  amplitude: Amplitude
+  Superhuman Platform Inc: Superhuman (Grammarly)
+  astronomer: Astronomer
+  clickhouse: ClickHouse
+  sentry: Sentry
+  nerdwallet: NerdWallet
+  thumbtack: Thumbtack
+  niantic-spatial: Niantic Spatial
+  marqeta-inc: Marqeta
+  chainalysis-careers: Chainalysis
+  aurora-operations-inc: Aurora
+  insitro: insitro
+  benchling: Benchling
+  plaid: Plaid
+
+workday:      # career site link
+  NVIDIA: https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite
+  Salesforce: https://salesforce.wd12.myworkdayjobs.com/External_Career_Site
+  Adobe: https://adobe.wd5.myworkdayjobs.com/external_experienced
+  Intel: https://intel.wd1.myworkdayjobs.com/External
+  Workday: https://workday.wd5.myworkdayjobs.com/Workday
+  PayPal: https://paypal.wd1.myworkdayjobs.com/jobs
+  Mastercard: https://mastercard.wd1.myworkdayjobs.com/CorporateCareers
+  Circle: https://circle.wd1.myworkdayjobs.com/Circle
+  Capital One: https://capitalone.wd1.myworkdayjobs.com/Capital_One
+  CrowdStrike: https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers
+  DataRobot: https://datarobot.wd1.myworkdayjobs.com/DataRobot_External_Careers
+  Zillow: https://zillow.wd5.myworkdayjobs.com/Zillow_Group_External
+  Autodesk: https://autodesk.wd1.myworkdayjobs.com/Ext
+  Qualcomm: https://qualcomm.wd5.myworkdayjobs.com/External
+  Dell: https://dell.wd1.myworkdayjobs.com/External
+  Walmart: https://walmart.wd5.myworkdayjobs.com/WalmartExternal
+  Target: https://target.wd5.myworkdayjobs.com/targetcareers
+  Disney: https://disney.wd5.myworkdayjobs.com/disneycareer
+  Comcast: https://comcast.wd5.myworkdayjobs.com/Comcast_Careers
+  T-Mobile: https://tmobile.wd1.myworkdayjobs.com/External
+  CVS Health: https://cvshealth.wd1.myworkdayjobs.com/CVS_Health_Careers
+  Citi: https://citi.wd5.myworkdayjobs.com/2
+  BlackRock: https://blackrock.wd1.myworkdayjobs.com/BlackRock_Professional
+  Nasdaq: https://nasdaq.wd1.myworkdayjobs.com/Global_External_Site
+  General Motors: https://generalmotors.wd5.myworkdayjobs.com/Careers_GM
+  Nike: https://nike.wd1.myworkdayjobs.com/nke
+  Accenture: https://accenture.wd103.myworkdayjobs.com/AccentureCareers
+  Pfizer: https://pfizer.wd1.myworkdayjobs.com/PfizerCareers
+  Micron: https://micron.wd1.myworkdayjobs.com/External
+  Applied Materials: https://amat.wd1.myworkdayjobs.com/External
+  Marvell: https://marvell.wd1.myworkdayjobs.com/MarvellCareers
+  Broadcom: https://broadcom.wd1.myworkdayjobs.com/External_Career
+  HP: https://hp.wd5.myworkdayjobs.com/ExternalCareerSite
+  HPE: https://hpe.wd5.myworkdayjobs.com/Jobsathpe
+  Zoom: https://zoom.wd5.myworkdayjobs.com/Zoom
+  eBay: https://ebay.wd5.myworkdayjobs.com/apply
+  Warner Bros Discovery: https://warnerbros.wd5.myworkdayjobs.com/global
+  Verizon: https://verizon.wd12.myworkdayjobs.com/verizon-careers
+  Bank of America: https://ghr.wd1.myworkdayjobs.com/Lateral-US
+  T. Rowe Price: https://troweprice.wd5.myworkdayjobs.com/TRowePrice
+  Medtronic: https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers
+  Illumina: https://illumina.wd1.myworkdayjobs.com/illumina-careers
+  # Boston area
+  HubSpot: https://hubspot.wd5.myworkdayjobs.com/HubSpot_Careers
+  DraftKings: https://draftkings.wd1.myworkdayjobs.com/DraftKings
+  Fidelity: https://fmr.wd1.myworkdayjobs.com/FidelityCareers
+  State Street: https://statestreet.wd1.myworkdayjobs.com/Global
+  Thermo Fisher: https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers
+  Moderna: https://modernatx.wd1.myworkdayjobs.com/M_tx
+  Analog Devices: https://analogdevices.wd1.myworkdayjobs.com/External
+  Boston Dynamics: https://bostondynamics.wd1.myworkdayjobs.com/Boston_Dynamics

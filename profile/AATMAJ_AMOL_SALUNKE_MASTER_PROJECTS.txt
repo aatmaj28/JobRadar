@@ -1,0 +1,210 @@
+# AATMAJ AMOL SALUNKE — MASTER PROJECTS
+
+> This document contains ALL academic/personal projects with every bullet point variation available for tailoring.
+> The bot should select 2 projects and pick/adapt the best bullet versions per role.
+
+---
+
+## PROJ-1: FinRAG: AI Financial Document Q&A Using RAG & LLMs
+**Tech Tags:** Information Retrieval, LLMs, LangChain
+**Domain:** NLP, RAG, Financial AI, Information Retrieval
+
+### Bullet Variants:
+- Architected a RAG-based finance research analysis system in Python + LangChain, processing 2,500+ financial 10-K, 10-Q, 8-K filings with Hugging Face Transformers, FinBERT, and FAISS, achieving 88% retrieval accuracy and reducing manual research review time by 65%, deployed and hosted on Streamlit with real-time company financial dashboards powered by yfinance API integration for live market data, stock metrics, and fundamental analysis alongside document Q&A.
+- Designed an interactive applied research study interface enabling users to dynamically tune retrieval hyperparameters from the Streamlit UI, offering configurable selection across 3 embedding models, cross-encoder rerankers (MS-MARCO, MiniLM), hybrid retrieval modes (semantic, keyword, and BM25+vector fusion with MMR), and choice of LLM providers (Claude, Mistral, Gemini) for comparative response quality evaluation across different pipeline configurations in real-time.
+- Implemented a multi-model experimentation sandbox with configurable embedding pipelines, prompt-engineering strategies for improved relevance, and A/B comparison of retrieval architectures, version-controlled with GitHub and Docker, documented via Overleaf with LaTeX, demonstrating end-to-end research-to-deployment readiness for scalable ML platform design and quantitative financial analysis workflows.
+
+---
+
+## PROJ-2: SmartCart – AI-driven grocery shopping made effortless, affordable, and personalized
+**Tech Tags:** LLM, Django REST, React.js & Next.js
+**Domain:** Full-Stack, NLP, Consumer Analytics, E-Commerce, Optimization
+
+### Bullet Variants:
+- Designed and deployed a data-intensive AI-powered grocery delivery platform at the Innovate 2025 Hackathon using Django REST, FastAPI microservices, and React/Next.js, integrating 50+ vendor APIs via Instacart for real-time price aggregation across 10,000+ products, with transformer-based NLP models for automated ingredient extraction from dish names, dietary preference parsing, and allergy-aware filtering, reducing manual shopping effort by 50-60%.
+- Engineered a proprietary weighted scoring algorithm combining LLM-driven deal discovery (Hugging Face, LangChain) with multi-factor price elasticity modeling, integrating vendor reliability scores, delivery time optimization, and freshness indicators into a composite ranking engine served via FastAPI endpoints, lowering total cart costs by 10-12% while maximizing customer satisfaction through personalized dietary and budget constraint optimization.
+- Built a multi-objective optimization framework in Python + PostgreSQL with FastAPI as the API orchestration layer between React/Next.js frontend and backend scoring services, implementing LLM-powered sentiment analysis on product reviews, real-time vendor price comparison pipelines, and a hybrid proprietary scoring engine weighting price, quality, availability, and user preference signals to surface optimal purchasing recommendations, boosting user engagement by 45% during hackathon demo evaluation.
+
+---
+
+## PROJ-3: Leukemia Blood Cell Classification with Ensemble Deep Learning
+**Tech Tags:** CNNs, Ensemble Learning
+**Domain:** Medical AI, Computer Vision, Deep Learning
+
+### Bullet Variants:
+- Developed an ensemble deep learning pipeline for automated leukemia subtype classification combining custom CNN (79.4%), SqueezeNet (82.6%), and InceptionV3 (84.1%) architectures using PyTorch Lightning with mixed-precision training (AMP) and TensorRT optimization, implementing weighted soft-voting fusion and stacking meta-learner strategies to achieve 86.1% ensemble accuracy, demonstrating advanced multi-architecture neural network design and GPU-accelerated training on medical imaging datasets.
+- Engineered end-to-end computer vision preprocessing and augmentation pipelines using OpenCV, Albumentations, and torchvision transforms for blood cell microscopy images, applying stain normalization, class-balanced sampling, and progressive resizing strategies to address dataset imbalance across leukemia subtypes, with hyperparameter optimization via learning rate scheduling (cosine annealing, ReduceLROnPlateau) and early stopping to maximize generalization across train-validation-test splits.
+- Applied Grad-CAM attention visualization and SHAP explainability analysis to interpret feature contributions across all three model architectures, identifying discriminative cellular morphology regions driving classification decisions, and performed rigorous evaluation using precision, recall, F1-score, AUC-ROC, and confusion matrix analysis, with production-ready model export via ONNX serialization and TorchServe deployment pipelines reflecting end-to-end deep learning workflow management and healthcare AI compliance readiness.
+
+---
+
+## PROJ-4: Autonomous Car Parking in Unity using TD3 and Options Critic Algorithm
+**Tech Tags:** Unity, ML Agents, Deep RL
+**Domain:** Reinforcement Learning, Robotics, Autonomous Systems, Digital Twin
+
+### Bullet Variants:
+- Developed a hierarchical model-free reinforcement learning system for autonomous parking in a randomized Unity digital twin environment, fusing a distributed TD3 actor-critic network optimized with A3C asynchronous gradient principles for continuous low-level control (steering, throttle, braking) with an Options Critic framework for temporal abstraction and high-level strategy selection, implementing prioritized experience replay, polyak-averaged target networks, and Ornstein-Uhlenbeck exploration noise to achieve 70% faster convergence than single-agent baselines across 50+ randomized parking configurations.
+- Engineered a multi-layered reward function combining sparse goal-completion rewards with dense potential-based reward shaping derived from differentiable collision avoidance potential fields and geodesic distance-to-target heuristics, integrated with a simulated multi-beam LiDAR perception system using Unity raycasting for 360-degree obstacle detection, achieving 85% reduction in collisions and 92% collision-free trajectory completion rate across dynamic multi-vehicle parking scenarios with randomized obstacle placements.
+- Designed a high-fidelity Unity simulation environment with Ackermann-steering physics-based vehicle dynamics, configurable friction coefficients, and domain randomization across lighting, weather, parking lot layouts, and pedestrian obstacles, implementing curriculum learning strategies that progressively increased scenario complexity from empty lots to dense multi-vehicle environments, enabling robust sim-to-real transfer readiness and 10x faster convergence compared to traditional DQN and vanilla PPO baselines.
+- Trained and benchmarked TD3, Options Critic, PPO, and SAC algorithms using PyTorch with adaptive exploration scheduling (linear epsilon decay, entropy-regularized policies), learning rate warm-up with cosine annealing, and gradient clipping for training stability, evaluating performance using cumulative reward curves, average parking completion time (reduced by 45%), success rate, collision frequency, and path efficiency metrics across 1,000+ evaluation episodes, with TensorBoard logging and model checkpointing for reproducible experiment tracking.
+
+---
+
+## PROJ-5: Automatic Soccer Video Highlight Generation
+**Tech Tags:** CNNs, RNNs, Computer Vision
+**Domain:** Computer Vision, Video Processing, Sports Analytics
+
+### Bullet Variants:
+- Pioneered an automated sports highlight generation system using a hybrid ResNet50-GRU architecture for spatiotemporal feature extraction, leveraging ResNet50 as a frame-level CNN encoder for spatial feature embeddings and bidirectional GRU layers for temporal sequence modeling across video segments, trained on 100 full-length soccer matches with custom event annotations (goals, fouls, corners, saves, celebrations) achieving 85% event detection accuracy using focal loss to handle severe class imbalance between highlight and non-highlight frames.
+- Architected an end-to-end video processing and inference pipeline using OpenCV, FFmpeg, and PyTorch, implementing sliding window frame sampling at configurable FPS rates, batch feature extraction through pre-trained ResNet50 with frozen convolutional layers, temporal aggregation via GRU hidden states, and a learned event significance ranking algorithm that scores and prioritizes detected highlights based on predicted excitement probability, enabling automated generation of customizable 3 or 5-minute highlight reels with smooth scene transitions and timestamp-accurate clip stitching.
+- Engineered comprehensive data preprocessing pipelines for large-scale video datasets, performing frame extraction, resolution normalization, and temporal alignment across variable-length match recordings, implementing data augmentation strategies including random cropping, horizontal flipping, and color jittering on extracted frames, with model evaluation using precision, recall, F1-score, and mAP metrics across event categories, and TensorBoard visualization of training curves, attention heatmaps over temporal sequences, and confusion matrices for multi-class event classification benchmarking.
+
+---
+
+## PROJ-6: NutriTrack – AI-Powered Food Calorie Estimator
+**Tech Tags:** YOLOv4/v8, OpenCV, Deep Learning
+**Domain:** Computer Vision, Health Tech, Edge ML, Object Detection
+
+### Bullet Variants:
+- Developed NutriTrack, an AI-powered food calorie estimator using YOLOv8 and OpenCV, achieving real-time fruit detection and calorie estimation with 85%+ accuracy.
+- Developed an edge-deployable real-time food analysis platform using an optimized CNN (YOLOv8) with transfer learning and spatial attention, achieving >85% mAP for detection and probabilistic calorie estimation via a GraphQL API.
+- Built an interactive Streamlit-based interface for seamless user experience, leveraging deep learning models to assist in health tracking and dietary planning, recognized among the top 5 projects at the T-Hunt Hackathon.
+- Engineered a scalable Streamlit front-end on a containerized microservices architecture (Kubernetes) with a NoSQL backend (MongoDB), exposing deep learning models via RESTful APIs for personalized dietary tracking, recognized as a top project at T-Hunt Hackathon.
+
+---
+
+## PROJ-7: Heart Disease Prediction – A Thorough Analysis
+**Tech Tags:** ML, Preprocessing, Classification
+**Domain:** Healthcare ML, Classical ML, Feature Engineering
+
+### Bullet Variants:
+- Built a heart disease prediction system using ensemble and distance-based ML algorithms (Random Forest, Gradient Boosting, KNN, Logistic Regression, SVM) with scikit-learn, addressing class imbalance through SMOTE oversampling, applying Recursive Feature Elimination (RFE) and correlation-based feature selection to identify the most discriminative clinical indicators from 13+ cardiovascular risk factors, and optimizing hyperparameters via GridSearchCV with stratified k-fold cross-validation to maximize diagnostic accuracy.
+- Engineered end-to-end data preprocessing and feature engineering pipelines using Pandas, NumPy, and Scipy, performing missing value imputation, outlier detection via IQR and Z-score analysis, categorical encoding (one-hot, label), and min-max/standard scaling on clinical datasets, with exploratory data analysis using Matplotlib and Seaborn to visualize feature distributions, pairwise correlations, and class separability across patient demographics and health metrics.
+- Conducted rigorous comparative model evaluation using precision, recall, F1-score, AUC-ROC, confusion matrix, and Matthews Correlation Coefficient (MCC) across 5+ classification algorithms, performing statistical significance testing and learning curve analysis to assess overfitting and generalization, documenting findings with reproducible Jupyter notebooks and structured visualizations of model performance trade-offs for healthcare decision support applications.
+
+---
+
+## PROJ-8: Airbnb Property Search Bot
+**Tech Tags:** NLP Bot, LLMs, Information Retrieval
+**Domain:** NLP, Search/Retrieval, Generative AI, Real Estate
+
+### Bullet Variants:
+- Developed an AI-powered Airbnb property search bot using Python, LangChain, and Pinecone vector database, implementing hybrid retrieval architecture combining dense semantic embeddings (sentence-transformers, all-MiniLM-L6-v2) with BM25 sparse keyword matching and Reciprocal Rank Fusion (RRF) for optimal result merging, processing 50K+ property listings with metadata-filtered vector search across price, location, amenities, and availability dimensions, improving search relevance by 40% and reducing query processing time by 30%.
+- Implemented a Generative AI query understanding and refinement pipeline using Google's Gemini model with few-shot prompt engineering, extracting structured search intents (check-in dates, guest count, budget range, neighborhood preferences) from natural language queries through entity recognition and slot-filling techniques, dynamically rewriting ambiguous user queries into optimized retrieval prompts that enhanced search accuracy by 35% and enabled conversational multi-turn property discovery within a Streamlit interface.
+- Engineered end-to-end data ingestion and embedding pipelines using BeautifulSoup and Pandas for Airbnb listing extraction, preprocessing property descriptions with text cleaning, tokenization, and chunk-overlap strategies for optimal embedding quality, implementing cosine similarity reranking with cross-encoder models (MS-MARCO MiniLM) for second-stage result refinement, and building an interactive Streamlit dashboard with session-based conversation memory, dynamic filter widgets, map-based property visualization, and exportable shortlist functionality for personalized real estate recommendation.
+
+---
+
+## PROJ-9: TripTailor – Personalized Travel Itinerary Generator
+**Tech Tags:** NLP, API Integration, Web Scraping
+**Domain:** NLP, API Integration, Travel Tech, Recommendation Systems
+
+### Bullet Variants:
+- Built TripTailor, a personalized travel itinerary generator using Python, Flask, and LangChain, integrating 5+ REST APIs (OpenWeatherMap, Skyscanner, Google Places, Google Maps Directions, Foursquare) for real-time weather forecasting, flight price comparison, transit routing, and local attraction discovery, implementing collaborative filtering and content-based recommendation algorithms to generate optimized day-by-day itineraries for 200+ users with constraint satisfaction across budget, travel duration, and interest preferences, reducing manual planning time by 70%.
+- Engineered dynamic web scraping and data aggregation workflows using BeautifulSoup, Selenium, and Scrapy to extract real-time hotel pricing, restaurant ratings, and event listings from travel platforms, building automated ETL pipelines with Pandas for data cleaning, deduplication, and normalization into structured PostgreSQL databases, with Postman-based API testing and validation ensuring 99%+ data freshness and reliability across all integrated data sources.
+- Developed NLP-powered preference extraction and recommendation engine using TF-IDF vectorization, cosine similarity matching, and keyword-based intent classification to parse natural language user inputs (travel style, cuisine preferences, activity interests, accessibility needs) into weighted feature vectors, dynamically ranking and scoring 1,000+ points of interest per destination, recognized as an "innovative project" at Social Winter of Code Season 5 Hackathon for novel approach to interest-based travel personalization with interactive Streamlit dashboard and exportable PDF itinerary generation.
+
+---
+
+## PROJ-10: StackOverflow Clone with OCR Technology
+**Tech Tags:** OCR, API Integration, MongoDB
+**Domain:** Full-Stack, OCR, Web Development
+
+### Bullet Variants:
+- Engineered a full-stack service-oriented architecture (SOA) Stack Overflow clone using React.js, Redux for centralized state management, and Express.js with Node.js backend, integrating OCR capabilities via API Ninjas' Image-to-Text API for automated code extraction from screenshots with asynchronous image processing pipelines, reducing manual code entry by 40% and enabling users to seamlessly convert photographed code snippets into searchable, syntax-highlighted question posts.
+- Implemented scalable user authentication and authorization system using JWT token-based security with refresh token rotation, bcrypt password hashing, and role-based access control, deployed on a sharded MongoDB cluster with replica sets ensuring 99.9% uptime and horizontal scalability across 1,000+ questions and answers, with Mongoose ODM for schema validation and indexed full-text search enabling sub-100ms query response times across the entire knowledge base.
+- Optimized frontend performance through lazy loading, dynamic code splitting with React.lazy and Suspense, and server-side rendering (SSR) achieving 30% improvement in page load speed, implementing infinite scroll pagination, debounced real-time search with Elasticsearch integration, rich markdown editing with syntax highlighting (Prism.js), upvote/downvote ranking algorithms, and tag-based content categorization, with CI/CD deployment pipelines via GitHub Actions and Docker containerization for reproducible development and production environments.
+
+---
+
+## PROJ-11: HuskyTeams – Smart Project Team Discovery Platform
+**Tech Tags:** Next.js, TypeScript, Supabase, Tailwind CSS
+**Domain:** Full-Stack, Web Development, Collaboration Tools, University Platform
+
+### Bullet Variants:
+- Architected a full-stack team discovery platform using Next.js 14 (App Router), TypeScript, and Supabase (PostgreSQL), conceptualized and built end-to-end in under 2 hours after identifying the pain point during a classroom discussion among students, enabling 500+ Northeastern students to find project teammates through skill-based filtering, availability matching, and interest alignment, reducing team formation time by 60%.
+- Developed an innovative weighted scoring and matching algorithm that computes compatibility scores between students based on multi-dimensional preference vectors including technical skills overlap, course enrollment, availability windows, project domain interests, and experience level, ranking and surfacing optimal teammate recommendations through a personalized dashboard with real-time filtering and sorting capabilities.
+- Engineered a custom OTP-based email verification system using Nodemailer and Gmail SMTP, implementing secure authentication workflows with Supabase Auth, role-based access control, and session management to ensure data integrity across 1,000+ registered accounts.
+- Designed and deployed a responsive dark-themed UI with Tailwind CSS and shadcn/ui components, integrating Lucide React icons and real-time Supabase subscriptions for live teammate availability updates, achieving 95% positive usability feedback in beta testing.
+
+---
+
+## PROJ-12: Void AI – Alpha Discovery in Under-Covered Equities
+**Tech Tags:** CrewAI, RAG, Haystack, PostgreSQL, MCP
+**Domain:** Quant Finance, Multi-Agent AI, NLP, Information Retrieval, Investment Analytics
+
+### Bullet Variants:
+- Built Void AI, a multi-agent AI stock discovery platform using FastAPI and CrewAI orchestrating a 5-agent adversarial debate system (Bull, Bear, Researcher, Moderator, Strategist) to surface overlooked investment opportunities, scanning ~2,900 publicly traded stocks (S&P 500, S&P 400, Russell 2000) to detect coverage gaps between market activity and analyst attention and produce data-backed investment theses.
+- Engineered a RAG-powered SEC filing research assistant using Haystack v2 with pgvector and PostgreSQL for vector storage and BAAI/bge-small-en-v1.5 embeddings, integrating 2 Model Context Protocol (MCP) servers — a Tavily Web Search MCP (Node.js) for live market intelligence and a custom SEC EDGAR MCP (Python) for on-demand filing fetches — eliminating bulk chunking and GB-scale vector storage overhead while enabling natural-language querying across EDGAR filings.
+- Developed a proprietary multi-factor coverage-gap scoring engine integrating yfinance, SEC EDGAR, Finnhub, and Tavily data sources, augmented by an ML weight optimizer (Linear, Ridge, Random Forest, XGBoost) trained on historical forward returns and a quintile-based backtesting engine that validated signal predictiveness with a +1.56% Q1–Q5 spread at a 30-day horizon, with an LLM-as-a-Judge validation layer catching false positives such as penny-stock traps and volume anomalies.
+- Architected the data backend on Supabase (PostgreSQL + pgvector) spanning 23 tables and 19 migrations, with automated cron jobs fetching, processing, and upserting daily ticker data, surfacing real-time alerts, watchlists, portfolio tracking, and side-by-side stock comparison via a Next.js 16 / React 19 / TypeScript / Tailwind CSS / Recharts / Three.js dashboard.
+- Deployed the CrewAI agent crew and Haystack RAG layer as an independent FastAPI microservice on Railway, decoupling AI inference from the main backend for horizontal scalability, with the Next.js frontend on Vercel and the managed PostgreSQL database on Supabase, secured via NextAuth v5 with Google OAuth and email/OTP through Nodemailer.
+
+---
+
+## PROJ-13: ResilienceAI – Global Supply Chain Risk Intelligence Platform
+**Tech Tags:** LangGraph, Google BigQuery, Next.js, Mapbox
+**Domain:** Multi-Agent AI, Geopolitical Risk, Supply Chain Analytics, Climate Data, NLP
+
+### Bullet Variants:
+- Architected a multi-agent AI supply chain risk platform at the InnovAIte 2026 Hackathon, orchestrating 7 specialized LangGraph agents (Geopolitical Analyst, Climate Monitor, Disaster Tracker, Economic Forecaster, Food Security Assessor, Health Risk Evaluator, Cascade Simulator) with a supervisor orchestrator implementing inter-agent debate protocols, persistent shared memory, and consensus-driven risk assessment to analyze geopolitical, climate, disaster, economic, food security, and health risks across 266 countries using 25 years of real-world data, powered by Groq API inference for sub-second agent response times.
+- Engineered cross-domain risk correlation and cascade effect simulation pipelines using Python, Pandas, and NumPy, processing 72K+ GDELT conflict events via Google BigQuery, ERA5 climate reanalysis data through Google Earth Engine, EM-DAT disaster records, FAOSTAT food production indices, WHO disease outbreak alerts, and World Bank economic indicators, implementing graph-based dependency modeling with NetworkX for multi-hop supply chain disruption propagation and Monte Carlo simulation for probabilistic risk scoring, achieving 82% directional accuracy in predicting cascading supply chain failures across interconnected regions.
+- Developed a real-time global risk intelligence dashboard using Next.js 14, React, TypeScript, Recharts, and Mapbox GL JS, implementing a composite risk scoring engine computing weighted threat levels per country across 6 risk dimensions with configurable thresholds and alert triggers, featuring interactive choropleth map visualizations, country-level drill-down analytics, temporal risk trend analysis, agent reasoning transparency logs, and exportable PDF risk briefings enabling supply chain managers to visualize, prioritize, and act on mitigation strategies in real-time.
+
+---
+
+## PROJ-14: StackOverflow Conversational Assistant – Azure AI Hackathon
+**Tech Tags:** Azure OpenAI, Azure Cosmos DB, Azure Functions, React
+**Domain:** Conversational AI, Cloud (Azure), Serverless, Speech/NLP, Developer Tools
+
+### Bullet Variants:
+- Developed a multi-modal AI-powered StackOverflow assistant using Azure OpenAI and Azure Speech Services, enabling one-click summarization of technical discussions, context-aware follow-up Q&A, and hands-free voice interaction, reducing developer research time by 55% across 1,000+ test queries.
+- Engineered a serverless backend architecture using Azure Function Apps and Azure Cosmos DB, implementing persistent query history, real-time speech-to-text transcription via Microsoft Cognitive Services, and low-latency chatbot responses with 92% contextual relevance on multi-turn developer conversations.
+- Built a responsive React frontend integrating Azure OpenAI for intelligent code-aware summarization and Azure Speech Services for bidirectional voice interaction, delivering a seamless multi-modal developer experience recognized at the Microsoft Azure AI Developer Hackathon.
+
+---
+
+## PROJ-15: Disruptify – Algorithmic Poker Bot (2nd Place, ACM Hack)
+**Tech Tags:** Python, Game Theory, Reinforcement Learning, WebSockets
+**Domain:** Reinforcement Learning, Game Theory, Algorithmic Decision-Making, Probability
+
+### Bullet Variants:
+- Engineered a competitive Texas Hold'em poker bot in 30 minutes using Python, combining game-theory optimal (GTO) strategies with real-time Monte Carlo probability simulations, pre-flop hand evaluation using Sklansky-Chubukov rankings, position-based play adjustments, and opponent modeling through Bayesian inference on betting patterns, securing 2nd place at the ACM Algorithmic Poker Event against 20+ competing teams through adaptive exploitation of non-GTO opponents.
+- Implemented dynamic betting algorithms integrating pot odds computation, implied odds estimation, stack-to-pot ratio (SPR) analysis, Kelly Criterion-based bet sizing, and selective bluffing with controlled randomness calibrated through Nash equilibrium mixed strategies, achieving a 73% win rate across 500+ simulated hands by balancing expected value maximization with strategic unpredictability and variance minimization across tournament stages.
+- Developed a real-time hand analysis and decision engine using statistical modeling, combinatorial equity calculation, and win probability estimation via Monte Carlo rollout simulations at each game stage (pre-flop, flop, turn, river), with hand history logging to structured JSON databases, post-tournament strategy optimization feedback loops analyzing showdown data for leak detection, and WebSocket-based tournament communication via Node.js and TypeScript for sub-50ms decision latency ensuring competitive responsiveness in live multi-table tournament play.
+
+---
+
+## PROJ-16: Composed Image Retrieval (CIR) System for E-Commerce Fashion Search
+**Tech Tags:** CLIP, Vision-Language Models, FAISS, Multimodal Retrieval
+**Domain:** Computer Vision, Multimodal AI, Information Retrieval, Vision-Language Models, E-Commerce
+
+### Bullet Variants:
+- Built a Composed Image Retrieval (CIR) system for e-commerce fashion search answering multimodal queries that combine a visual reference with text modifications (e.g. "like this dress but in navy blue with shorter sleeves"), systematically comparing 3 CIR architectures (Embedding Fusion, VLM Reranking, Textual Inversion) across 7 model configurations spanning local and frontier models.
+- Engineered a CLIP fusion retrieval baseline using OpenCLIP ViT-H-14 with FAISS IndexFlatIP over 35K+ products, achieving R@10 = 0.276 at 0.5s/query via an α=0.3 weighted-average fusion, benchmarked end-to-end on the full Fashion-IQ validation set of 6,016 queries across dress, shirt, and toptee categories.
+- Developed a VLM reranking pipeline with Gemini 2.5 Flash reaching R@10 = 0.330 and outperforming published zero-shot methods (CIReVL, SEARLE, Pic2Word, LinCIR), alongside a CIReVL-style textual-inversion approach (caption → modify → retrieve) and a learned-fusion experiment using linear/MLP/gated networks trained with InfoNCE loss.
+- Conducted an accuracy–latency Pareto analysis spanning 4 orders of magnitude across local VLMs (Qwen2.5-VL-3B, 4-bit NF4 quantized) and frontier APIs (Gemini 2.5 Flash, GPT-4o), shipping an interactive Gradio 6 demo with all 3 approaches side-by-side and authoring a 12-page NeurIPS-format paper (8 tables, 3 figures) on NVIDIA RTX 4060 (8GB VRAM) using PyTorch, HuggingFace Transformers, and bitsandbytes.
+
+---
+
+## PROJ-17: Log Whisperers – Universal Log-to-JSON Triage Pipeline
+**Tech Tags:** Google Gemma, BAML, Log Parsing, Pydantic
+**Domain:** LLM Applications, Anomaly Detection, Observability, Structured Generation, Data Engineering
+
+### Bullet Variants:
+- Built Log Whisperers in a 5-hour Google × Northeastern University hackathon, a format-agnostic pipeline that turns any raw log file (HDFS, Linux, Apache, Windows, supercomputer logs) into clean, schema-validated JSON incident cards pinpointing the real failure and suggesting a fix, with zero per-format configuration.
+- Engineered a hybrid architecture where cheap deterministic code finds and ranks suspicious events and a local Google Gemma model (gemma-3-12b) explains only the important few, scaling to huge logs while staying fast, with a standout "rarity" anomaly signal that catches keyword-less failures a normal grep ERROR misses (7 problems found vs 1 on real Hadoop logs).
+- Implemented multi-signal anomaly scoring (severity + keyword + rarity) with auto-detected event correlation and causal chains, achieving 100% timestamp detection across 16 real-world log datasets through format-agnostic structure discovery with no hardcoded fields.
+- Developed schema-validated, webhook-ready JSON generation using Google Gemma via BAML with automatic backend failover (vLLM → Ollama → deterministic) so the pipeline never breaks, validated by 84 passing tests end-to-end against the open-source loghub datasets, using Python, Drain log parsing, and Pydantic.
+
+---
+
+## PROJ-18: CoachMe+ – AI Sports Coach FiftyOne Plugin (1st place)
+**Tech Tags:** FiftyOne, Twelve Labs, Video Understanding, Python
+**Domain:** Computer Vision, Video Understanding, Multimodal AI, Sports Analytics
+
+### Bullet Variants:
+- Built CoachMe+, an AI-powered sports coaching FiftyOne plugin that analyzes athlete technique through video understanding with no human coach required, winning 1st place at the Video Understanding AI Hackathon at Northeastern University (Voxel51 + Twelve Labs), returning a similarity score, timestamped coaching feedback, and automatically surfaced examples of correct form from a reference library.
+- Engineered CounterVision, a "what should I have done?" module that auto-finds correct-technique video segments for every identified problem using Twelve Labs Pegasus 1.2 counterfactual generation and Marengo 3.0 semantic search, enabling athletes to see real corrective examples for each flagged mistake.
+- Developed TechniqueSync, a temporal phase-alignment module matching athlete and professional reference videos via embedding-based cosine similarity, and wired the full plugin scaffold of 7 FiftyOne operators end-to-end using the FiftyOne Plugin SDK, Python, and NumPy.
+- Delivered the project under the CV4Smalls philosophy that data curation beats model complexity, training no models and instead leveraging smarter use of existing video data through Twelve Labs Marengo 3.0 embeddings and Pegasus 1.2 video-language understanding.
