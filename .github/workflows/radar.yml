@@ -3,19 +3,20 @@ name: job-radar
 on:
   schedule:
     # Times are UTC. These match 8am to 11:30pm Eastern while daylight saving is on (until Nov 1).
+    # Minutes avoid the top of the hour, when GitHub's scheduler is busiest and runs arrive late.
     # Winter (after Nov 1): swap the three weekday lines for these to keep 8am to 11:30pm ET:
-    #   "2,17,32,47 13-23 * * 1-5"   "2,17,32,47 0-3 * * 2-6"   "2,17,32 4 * * 2-6"
-    - cron: "2,17,32,47 12-23 * * 1-5"   # weekdays every 15 min, 8am to 8pm ET
-    - cron: "2,17,32,47 0-2 * * 2-6"     # weekdays every 15 min, 8pm to 11pm ET (UTC is already the next day)
-    - cron: "2,17,32 3 * * 2-6"          # weekdays 11pm to 11:30pm ET
+    #   "7,22,37,52 13-23 * * 1-5"   "7,22,37,52 0-3 * * 2-6"   "7,22,37 4 * * 2-6"
+    - cron: "7,22,37,52 12-23 * * 1-5"   # weekdays every 15 min, 8am to 8pm ET
+    - cron: "7,22,37,52 0-2 * * 2-6"     # weekdays every 15 min, 8pm to 11pm ET (UTC is already the next day)
+    - cron: "7,22,37 3 * * 2-6"          # weekdays 11pm to 11:30pm ET
     - cron: "7 13-23/2 * * 0,6"          # weekends every 2 hours, about 9am to 7pm ET
   workflow_dispatch:
     inputs:
       mode:
-        description: "run, test, validate or reset"
+        description: "run, test, validate, backlog or reset"
         type: choice
         default: run
-        options: [run, test, validate, reset]
+        options: [run, test, validate, backlog, reset]
 
 concurrency:
   group: job-radar

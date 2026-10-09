@@ -133,6 +133,11 @@ class WorkAuthTests(unittest.TestCase):
         self.assertEqual(min_years_required("0-2 years of experience with Python"), 0)
         self.assertEqual(min_years_required("3+ years of professional experience"), 3)
         self.assertIsNone(min_years_required("We have been around for 10 years."))
+        self.assertEqual(min_years_required("Five (5) years of industry experience"), 5)
+        self.assertEqual(min_years_required("3 or more years of experience with Python"), 3)
+        self.assertEqual(min_years_required("Experience: 4+ yrs building APIs"), 4)
+        self.assertEqual(min_years_required("BS with 3+ years, or MS with 1+ years of experience"), 1)
+        self.assertIsNone(min_years_required("Start in 2026. Years of experience are a plus."))
 
 
 class UrlAndSourceTests(unittest.TestCase):
@@ -279,6 +284,31 @@ class LatexTests(unittest.TestCase):
         result = compile_tex(path)
         self.assertTrue(result.ok, result.log_tail)
         self.assertEqual(result.pages, 1)
+
+
+class BacklogTests(unittest.TestCase):
+    def test_backlog_applies_every_check(self):
+        tmp = Path(tempfile.mkdtemp())
+        (tmp / "companies.yaml").write_text("greenhouse:\n  acme: Acme\n")
+        descs = {"1": "Build LLM agents. 0-2 years of experience.", "2": "Requires 5+ years of professional experience.",
+                 "3": "We are unable to sponsor visas.", "4": "Three (3) years of experience required."}
+        http = FakeHttp({
+            ("GET", "https://raw.githubusercontent.com/"): Resp(200, []),
+            ("GET", "https://boards-api.greenhouse.io/v1/boards/acme/jobs/"): lambda url: Resp(200, {"content": descs[url.rsplit("/", 1)[1]]}),
+            ("GET", "https://boards-api.greenhouse.io/v1/boards/acme/jobs"): Resp(200, {"jobs": [
+                {"id": i, "title": t, "absolute_url": f"https://boards.greenhouse.io/acme/jobs/{i}", "location": {"name": "Boston, MA"}}
+                for i, t in [(1, "AI Engineer"), (2, "Machine Learning Engineer"), (3, "Software Engineer"), (4, "Data Scientist")]]}),
+        })
+        notifier = Notifier(dry=True, log=lambda *a: None)
+        ks = KeywordScorer(PROFILE)
+        ctx = pipeline.Ctx(cfg=json.loads(json.dumps(CFG)), state=State(tmp / "s.json"), http=http, notifier=notifier,
+                           profile=PROFILE, scorer=ks, keyword_scorer=ks, root=tmp, out_dir=tmp / "out", log=lambda *a: None)
+        stats = pipeline.backlog(ctx)
+        self.assertEqual((stats["kept"], stats["removed_for_years"], stats["removed_for_sponsorship"]), (1, 2, 1))
+        rows = Path(stats["csv"]).read_text().splitlines()
+        self.assertEqual(len(rows), 2)
+        self.assertIn("AI Engineer", rows[1])
+        self.assertTrue(any(k == "text" and "fully checked" in s for k, s in notifier.sent))
 
 
 class PipelineTests(unittest.TestCase):

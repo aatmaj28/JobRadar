@@ -55,13 +55,20 @@ EARLY = re.compile(
     r"graduate program|\b(engineer|scientist|developer)\s*(i|1)\b|\bassociate\b",
     re.I,
 )
-YEARS = re.compile(r"(\d{1,2})\s*\+?\s*(?:(?:-|–|to)\s*\d{1,2}\s*)?\+?\s*years?", re.I)
+YEARS = re.compile(
+    r"(?<!\d)(\d{1,2})\s*(?:\+|plus|or more)?\s*(?:(?:-|–|to)\s*\d{1,2}\s*)?(?:\+|plus|or more)?\s*(?:years?|yrs?)\b",
+    re.I,
+)
+_WORD_NUMS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+_WORDS = re.compile(r"\b(" + "|".join(_WORD_NUMS) + r")\b(?:\s*\(\d{1,2}\))?", re.I)
 PHD_REQUIRED = re.compile(r"(phd|ph\.d\.?)\s+(is\s+)?(required|needed)|must have a (phd|ph\.d)", re.I)
 
 
 def min_years_required(text: str) -> int | None:
+    """Lowest "N years of experience" in a posting, so "3+ years, or 1+ with a Master's" counts as 1."""
+    text = _WORDS.sub(lambda m: str(_WORD_NUMS[m.group(1).lower()]), text or "")
     found = []
-    for m in YEARS.finditer(text or ""):
+    for m in YEARS.finditer(text):
         window = text[max(0, m.start() - 40): m.end() + 60].lower()
         if "experience" in window or "exp." in window:
             years = int(m.group(1))

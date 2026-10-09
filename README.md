@@ -59,5 +59,6 @@ py -m radar run --dry
 - Companies that don't exist switch themselves off after 3 misses. Run mode validate once a month.
 - GitHub's free plan gives private repos 2,000 Actions minutes a month. Checking every 15 minutes from 8am to 11:30pm on weekdays uses roughly 1,450 to 1,800, so glance at Settings > Billing after the first week. The GitHub Student Pack includes Pro, which gives 3,000. GitHub can also delay scheduled runs by a few minutes when it's busy.
 - GitHub schedules run on UTC time. After Nov 1, swap in the winter lines from the comment at the top of .github/workflows/radar.yml to keep 8am to 11:30pm ET.
+- Mode backlog rebuilds the open roles spreadsheet with every check applied (years asked and sponsorship) and emails it. It reads every description, so it takes about 5 minutes.
 - The radar's memory lives in the Actions cache. Mode reset wipes it, and the next run sends the open roles spreadsheet again.
 - Update LinkedIn to match your resume: DASH title "AI Software Engineer Research Assistant", LiquidPixels title "AI Training Data Engineer", and Borealis as "AI Engineer, Borealis Global Advisory LLC" from May 2025.

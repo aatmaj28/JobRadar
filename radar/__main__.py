@@ -1,4 +1,4 @@
-"""python -m radar [run|prep|test|validate|reset] [--dry]"""
+"""python -m radar [run|prep|test|validate|backlog|reset] [--dry]"""
 from __future__ import annotations
 
 import argparse
@@ -68,7 +68,7 @@ def build(cfg: dict, dry: bool) -> Ctx:
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="python -m radar", description="Job radar")
-    parser.add_argument("mode", nargs="?", default="run", choices=["run", "prep", "test", "validate", "reset"])
+    parser.add_argument("mode", nargs="?", default="run", choices=["run", "prep", "test", "validate", "backlog", "reset"])
     parser.add_argument("--dry", action="store_true", help="print pings here instead of sending them")
     args = parser.parse_args(argv)
     load_dotenv(ROOT / ".env")
@@ -99,6 +99,8 @@ def main(argv=None) -> int:
         ctx.state.save()
     elif args.mode == "test":
         stats = pipeline.test(ctx)
+    elif args.mode == "backlog":
+        stats = pipeline.backlog(ctx)
     else:
         stats = pipeline.validate(ctx)
     print(stats)

@@ -398,3 +398,59 @@ def _probe(ctx: Ctx, board: Board):
         return board, "missing"
     except Exception as exc:
         return board, f"down: {exc}"
+
+
+def backlog(ctx: Ctx) -> dict:
+    """Rebuild the open roles spreadsheet with every check (years asked, sponsorship). Memory isn't touched."""
+    cfg, log = ctx.cfg, ctx.log
+    filt = Filters(cfg)
+    jobs: list[Job] = []
+    discovered = ctx.state.data.get("discovered") or {}
+    if cfg["sources"].get("simplify", True):
+        try:
+            listings, _etag = simplify.fetch_listings(ctx.http)
+            jobs += simplify.jobs_from_listings(listings, int(cfg["sources"].get("simplify_max_age_days", 45)))
+            discovered = simplify.discover_boards(listings)
+        except Exception as exc:
+            log(f"Simplify feed failed: {exc}")
+    boards = {b.key: b for b in load_companies(ctx.root / "companies.yaml")} if cfg["sources"].get("curated", True) else {}
+    if cfg["sources"].get("discovered", True):
+        for b in simplify.boards_from_discovered(discovered, int(cfg["sources"].get("discovered_limit", 900))):
+            boards.setdefault(b.key, b)
+
+    def work(board: Board):
+        try:
+            return fetch_board(ctx.http, board, None)
+        except Exception:
+            return []
+
+    log(f"Rebuilding open roles from {len(boards)} boards...")
+    with ThreadPoolExecutor(max_workers=int(cfg["http"]["workers"])) as pool:
+        for found in pool.map(work, list(boards.values())):
+            jobs += found
+    candidates = _dedupe([j for j in jobs if filt.basic(j)])
+    log(f"Reading {len(candidates)} job descriptions...")
+    with ThreadPoolExecutor(max_workers=24) as pool:
+        list(pool.map(lambda j: describe(ctx.http, j), candidates))
+    kept = [j for j in candidates if filt.final(j)]
+    scored = sorted(((j, ctx.keyword_scorer.score(j)) for j in kept),
+                    key=lambda p: (-p[1].score, age_days(p[0].posted_at, ctx.now) or 99))[:1500]
+
+    ctx.out_dir.mkdir(parents=True, exist_ok=True)
+    path = ctx.out_dir / f"open_roles_checked_{local_date(ctx.now)}.csv"
+    with open(path, "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["Fit (keyword estimate)", "Company", "Role", "Location", "Posted", "Years asked", "Link"])
+        for j, sc in scored:
+            years = min_years_required(j.description or "")
+            w.writerow([sc.score, j.company, j.title, j.location, posted_label(j.posted_at, ctx.now),
+                        "not stated" if years is None else f"{years}+", j.url])
+    too_many = filt.dropped["asks for too many years"]
+    no_sponsor = filt.dropped["no sponsorship or citizenship"]
+    text = (f"{len(scored)} open roles passed every check. They're in the attached spreadsheet, best fits first.\n"
+            f"Removed {too_many} that ask for more than {filt.max_years} years and {no_sponsor} that rule out sponsorship "
+            "or need citizenship or a clearance.\n"
+            "The Years asked column shows the lowest number each posting mentions.")
+    ctx.notifier.text("📋 Open roles, fully checked", "<p>" + html.escape(text).replace("\n", "<br>") + "</p>", text, [path])
+    return {"boards": len(boards), "checked": len(candidates), "kept": len(scored),
+            "removed_for_years": too_many, "removed_for_sponsorship": no_sponsor, "csv": str(path)}
