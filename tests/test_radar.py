@@ -116,13 +116,18 @@ class WorkAuthTests(unittest.TestCase):
     def test_skips_no_sponsorship_and_citizenship(self):
         for text in ["We are unable to sponsor visas for this role.", "Visa sponsorship is not available.",
                      "Must be authorized to work in the US without the need for employer sponsorship now or in the future.",
-                     "Must be a U.S. citizen.", "Requires an active Secret clearance.", "Green card holders only."]:
+                     "Must be a U.S. citizen.", "Requires an active Secret clearance.", "Green card holders only.",
+                     "ITAR REQUIREMENTS: To conform to U.S. Government export regulations, applicant must be a (i) U.S. citizen "
+                     "or national, (ii) U.S. lawful, permanent resident (aka green card holder), (iii) Refugee under "
+                     "8 U.S.C. 1157, or (iv) Asylee under 8 U.S.C. 1158.",
+                     "This position is subject to ITAR and requires the candidate to be a U.S. person."]:
             self.assertIsNotNone(work_auth_blocker(job(desc=text)), text)
 
     def test_keeps_friendly_wording(self):
         for text in ["We sponsor H-1B visas for qualified candidates.",
                      "Equal opportunity employer without regard to race, citizenship status, or national origin.",
-                     "This role may require an export license under U.S. export control laws.", ""]:
+                     "This role may require an export license under U.S. export control laws.",
+                     "Experience with ITAR compliance tooling is a plus.", ""]:
             self.assertIsNone(work_auth_blocker(job(desc=text)), text)
 
     def test_simplify_tags(self):

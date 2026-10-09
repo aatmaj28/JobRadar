@@ -140,6 +140,10 @@ _CITIZEN = re.compile(r"""
 | (?:obtain|maintain)\s+(?:and\s+maintain\s+)?(?:a\s+|an\s+)?(?:\w+\s+){0,2}(?:security\s+)?clearance
 | \bts\s*/\s*sci\b | top\s+secret | polygraph
 | green\s+card\s+holders?\s+only | permanent\s+residents?\s+only
+| must\s+be\s+(?:a\s+)?\(i\)\s*(?:u\.?\s?s\.?|united\s+states)\s+citizen
+| (?:u\.?\s?s\.?|united\s+states)\s+citizen\s+or\s+(?:u\.?\s?s\.?\s+)?national
+| refugee[\s\S]{0,160}asylee
+| \bitar\b[\s\S]{0,240}(?:u\.?\s?s\.?\s+persons?|citizen)
 """, re.I | re.X)
 
 
