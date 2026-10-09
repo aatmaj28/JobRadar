@@ -127,7 +127,13 @@ class WorkAuthTests(unittest.TestCase):
         for text in ["We sponsor H-1B visas for qualified candidates.",
                      "Equal opportunity employer without regard to race, citizenship status, or national origin.",
                      "This role may require an export license under U.S. export control laws.",
-                     "Experience with ITAR compliance tooling is a plus.", ""]:
+                     "Experience with ITAR compliance tooling is a plus.",
+                     "We do not discriminate on the basis of citizenship status. This includes U.S. citizens, nationals, "
+                     "lawful permanent residents, refugees, and asylees.",
+                     "Applicants are protected from citizenship status discrimination, whether they are a U.S. citizen "
+                     "or national, a lawful permanent resident, or work authorized.",
+                     "Familiarity with ITAR and EAR export rules. We hire without regard to race, religion, citizenship "
+                     "status, or national origin.", ""]:
             self.assertIsNone(work_auth_blocker(job(desc=text)), text)
 
     def test_simplify_tags(self):

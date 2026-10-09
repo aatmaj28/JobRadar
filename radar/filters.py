@@ -141,10 +141,17 @@ _CITIZEN = re.compile(r"""
 | \bts\s*/\s*sci\b | top\s+secret | polygraph
 | green\s+card\s+holders?\s+only | permanent\s+residents?\s+only
 | must\s+be\s+(?:a\s+)?\(i\)\s*(?:u\.?\s?s\.?|united\s+states)\s+citizen
-| (?:u\.?\s?s\.?|united\s+states)\s+citizen\s+or\s+(?:u\.?\s?s\.?\s+)?national
-| refugee[\s\S]{0,160}asylee
-| \bitar\b[\s\S]{0,240}(?:u\.?\s?s\.?\s+persons?|citizen)
+| \bitar\b[\s\S]{0,240}(?:u\.?\s?s\.?\s+persons?|citizens?\b)
 """, re.I | re.X)
+# ITAR style lists ("U.S. citizen or national ... refugee ... asylee") only count after requirement wording in the
+# same sentence, because equal opportunity notices list the same groups. Periods in "U.S." and "U.S.C." don't end it.
+_SENTENCE = r"(?:[^.!?;]|\.(?=\S)|(?<=\b[a-z])\.)"
+_ITAR_LIST = re.compile(
+    r"(?:must\s+be|applicants?\s+must|candidates?\s+must|\bitar\b|export\s+(?:control\s+)?regulations?)"
+    rf"(?:{_SENTENCE}{{0,120}}?(?:u\.?\s?s\.?|united\s+states)\s+citizens?\s+or\s+(?:u\.?\s?s\.?\s+)?nationals?"
+    rf"|{_SENTENCE}{{0,240}}?refugees?{_SENTENCE}{{0,160}}?asylees?)",
+    re.I,
+)
 
 
 def work_auth_blocker(job: Job, skip_no_sponsorship: bool = True, skip_citizenship: bool = True) -> str | None:
@@ -155,7 +162,7 @@ def work_auth_blocker(job: Job, skip_no_sponsorship: bool = True, skip_citizensh
     if skip_no_sponsorship and re.search(r"no\s+sponsor|not\s+offer\s+sponsor", tag, re.I):
         return "no visa sponsorship"
     text = f"{job.title}\n{job.description or ''}"
-    if skip_citizenship and _CITIZEN.search(text):
+    if skip_citizenship and (_CITIZEN.search(text) or _ITAR_LIST.search(text)):
         return "citizenship or clearance required"
     if skip_no_sponsorship and _NO_SPONSOR.search(text):
         return "no visa sponsorship"
