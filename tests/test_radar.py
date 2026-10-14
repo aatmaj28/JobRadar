@@ -21,7 +21,7 @@ from radar.notify import Notifier, email_job  # noqa: E402
 from radar.prep import Preparer, compile_tex, extract_latex, make_safe  # noqa: E402
 from radar.profile import Profile  # noqa: E402
 from radar.referral import drafts  # noqa: E402
-from radar.scoring import (KeywordScorer, LLMScorer, focus_jd, job_number, min_years_required, phd_in_basic,  # noqa: E402
+from radar.scoring import (KeywordScorer, LLMScorer, focus_jd, job_number, required_years, phd_in_basic,  # noqa: E402
                            start_date_flag, year_month)
 from radar.sources import ashby, greenhouse, lever, workday  # noqa: E402
 from radar.state import State  # noqa: E402
@@ -173,7 +173,7 @@ class WorkAuthTests(unittest.TestCase):
                 "Candidates must be authorized to be employed in the U.S. by any employer.\n"
                 "U.S. work visa sponsorship (such as TN, O-1, H-1B, etc.) is not available for this role now or in the future.")
         self.assertIsNotNone(work_auth_blocker(job("Translational AI Engineer", desc)))
-        self.assertEqual(min_years_required(desc), 5)
+        self.assertEqual(required_years(desc), 5)
         filt = pipeline.Filters(CFG)
         self.assertFalse(filt.final(job("Translational AI Engineer", desc, location="Cambridge, MA")))
 
@@ -182,14 +182,14 @@ class WorkAuthTests(unittest.TestCase):
         self.assertTrue(work_auth_blocker(job(extra={"sponsorship": "US Citizenship Required"})))
 
     def test_years(self):
-        self.assertEqual(min_years_required("0-2 years of experience with Python"), 0)
-        self.assertEqual(min_years_required("3+ years of professional experience"), 3)
-        self.assertIsNone(min_years_required("We have been around for 10 years."))
-        self.assertEqual(min_years_required("Five (5) years of industry experience"), 5)
-        self.assertEqual(min_years_required("3 or more years of experience with Python"), 3)
-        self.assertEqual(min_years_required("Experience: 4+ yrs building APIs"), 4)
-        self.assertEqual(min_years_required("BS with 3+ years, or MS with 1+ years of experience"), 1)
-        self.assertIsNone(min_years_required("Start in 2026. Years of experience are a plus."))
+        self.assertEqual(required_years("0-2 years of experience with Python"), 0)
+        self.assertEqual(required_years("3+ years of professional experience"), 3)
+        self.assertIsNone(required_years("We have been around for 10 years."))
+        self.assertEqual(required_years("Five (5) years of industry experience"), 5)
+        self.assertEqual(required_years("3 or more years of experience with Python"), 3)
+        self.assertEqual(required_years("Experience: 4+ yrs building APIs"), 4)
+        self.assertEqual(required_years("BS with 3+ years, or MS with 1+ years of experience"), 1)
+        self.assertIsNone(required_years("Start in 2026. Years of experience are a plus."))
 
 
 class YearsTests(unittest.TestCase):
@@ -197,7 +197,7 @@ class YearsTests(unittest.TestCase):
 
     def check(self, cases):
         for text, want in cases:
-            self.assertEqual(min_years_required(text), want, text)
+            self.assertEqual(required_years(text), want, text)
 
     def test_degree_paths_use_the_masters_path(self):
         self.check([
@@ -256,6 +256,33 @@ class YearsTests(unittest.TestCase):
             ("Bachelor’s, master’s or PhD in computer science, physics or related discipline with at least 5 years of industry "
              "experience.", 5),
             ("Tuition Reimbursement After 1 Year of Service\n6–9 years of software engineering experience", 6),
+        ])
+
+    def test_strictest_basic_qualification_wins(self):
+        self.check([
+            # Woven: both bullets are required, so 3 decides
+            ("Required Qualifications\n• 3+ years of experience with data structures/algorithms and professional software "
+             "engineering in 1 or more programming languages (e.g., Python, Go, Java).\n• 2+ years designing and building "
+             "data-intensive, concurrent, scalable applications.", 3),
+            ("Minimum Qualifications:\n• 1+ year of experience with Docker\n• 4+ years of experience in Java or 2+ years in Python", 2),
+            ("Basic Qualifications:\n• 2+ years of experience in Python\nPreferred Qualifications:\n• 5+ years of experience", 2),
+            # degree paths over several lines: the Master's path, not the strictest line
+            ("Minimum Qualifications\n• Bachelor's degree in Computer Science with 4+ years of relevant experience\n"
+             "• Master's degree with 3+ years of relevant experience;\n• or PhD with 1+ years of relevant experience.", 3),
+            ("Minimum Qualifications\nDoctorate (Academic) Degree and 0 years related work experience;\n"
+             "Master's Level Degree and related work experience of 3 years;\nBachelor's Level Degree and related work "
+             "experience of 5 years", 3),
+            ("Required:\n• Bachelor's Degree plus 3 years of related work experience\nOR advanced degree plus 1 year of related "
+             "work experience.\n• 2+ years developing and deploying machine learning models.", 2),
+            ("REQUIREMENTS: Bachelor's degree in Computer Engineering or related field.\nThree (3) years of experience as a "
+             "Project Engineer.\nOR Master’s degree in Computer Engineering or related field.\nOne (1) year of experience as "
+             "a Project Engineer.", 1),
+            ("• 5+ years of hands-on industry experience with applied ML (Bachelor's),\n• 3+ years of applied ML experience "
+             "(Master's), OR\n• 1+ year of applied ML experience (PhD)", 3),
+            ("Your Skills & Abilities (Required Qualifications):\n• 2+ years of software engineering experience\n"
+             "What Can Give You a Competitive Edge (Preferred Skills):\n• 5+ years of software engineering experience", 2),
+            # no Basic, Minimum or Required heading: the lowest number still counts
+            ("• 3+ years of experience with Python\n• 2+ years designing scalable applications.", 2),
         ])
 
     def test_only_requirement_phrases_count(self):
@@ -375,17 +402,25 @@ class CopyAndScoringTests(unittest.TestCase):
             self.assertIn(line, excerpt)
         self.assertNotIn("equal opportunity", excerpt)
 
-    def test_red_flags_cap_the_keyword_score(self):
+    def test_red_flags_lower_keyword_scores_by_three(self):
         ks = KeywordScorer(PROFILE, earliest_start="2027-01")
         strong = "Python PyTorch LLM RAG agents FastAPI Docker AWS vector embedding inference evaluation. 0-2 years of experience."
-        self.assertGreaterEqual(ks.score(job("AI Engineer, New Grad", strong)).score, 8)
+        base = ks.score(job("AI Engineer, New Grad", strong)).score
+        self.assertEqual(base, 10)
         for extra, flag in [("Basic Qualifications:\n• PhD in Computer Science.", "PhD required"),
                             ("Candidates must be able to start immediately.", "asks to start immediately"),
                             ("Start date: November 2026.", "start date November 2026 is before January 2027")]:
             s = ks.score(job("AI Engineer, New Grad", f"{strong}\n{extra}"))
-            self.assertLessEqual(s.score, 3, extra)
+            self.assertEqual(s.score, base - 3, extra)
             self.assertIn(flag, s.red_flags)
         self.assertEqual(ks.score(job("AI Engineer, New Grad", f"{strong}\nStart date: January 2027.")).red_flags, [])
+        self.assertEqual(ks.score(job("Software Engineer", "Java. 6+ years of experience required. PhD required.")).score, 1)
+        # still strong after the drop, so it's emailed with the warning
+        j = job("AI Engineer, New Grad", f"{strong}\nStart date: November 2026.")
+        s = ks.score(j)
+        self.assertGreaterEqual(s.score, CFG["scoring"]["min_score_to_ping"])
+        _subject, html_body, _text = email_job(j, s, [], [], [], False, "")
+        self.assertIn("start date November 2026 is before January 2027", html_body)
 
     def test_red_flags_lower_ai_scores_and_show_in_the_email(self):
         reply = json.dumps({"results": [{"job": 1, "score": 9, "why": "fits", "red_flags": []}]})

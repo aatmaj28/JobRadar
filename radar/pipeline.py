@@ -17,7 +17,7 @@ from .filters import TitleFilter, company_ok, employment_ok, recent_enough, us_l
 from .models import Board, Job
 from .prep import paste_block, tex_available
 from .referral import drafts, search_links
-from .scoring import KeywordScorer, Score, min_years_required
+from .scoring import KeywordScorer, Score, required_years
 from .sources import BoardGone, describe, fetch_board
 from .state import State
 from .text import age_days, now_utc, posted_label
@@ -81,7 +81,7 @@ class Filters:
         if work_auth_blocker(job, self.skip_no_sponsor, self.skip_citizen):
             self.dropped["no sponsorship or citizenship"] += 1
             return False
-        years = min_years_required(job.description or "")
+        years = required_years(job.description or "")
         if self.max_years is not None and years is not None and years > int(self.max_years):
             self.dropped["asks for too many years"] += 1
             return False
@@ -442,7 +442,7 @@ def backlog(ctx: Ctx) -> dict:
         w = csv.writer(fh)
         w.writerow(["Fit (keyword estimate)", "Company", "Role", "Location", "Posted", "Years asked", "Link"])
         for j, sc in scored:
-            years = min_years_required(j.description or "")
+            years = required_years(j.description or "")
             w.writerow([sc.score, j.company, j.title, j.location, posted_label(j.posted_at, ctx.now),
                         "not stated" if years is None else f"{years}+", j.url])
     too_many = filt.dropped["asks for too many years"]

@@ -62,6 +62,7 @@ YEARS = re.compile(
 )
 _WORD_NUMS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
 _WORDS = re.compile(r"\b(" + "|".join(_WORD_NUMS) + r")\b(?:\s*\(\d{1,2}\))?", re.I)
+RED_FLAG_PENALTY = 3  # keyword and AI scores both drop this much when a red flag fires; 6+ still gets emailed
 PHD_REQUIRED = re.compile(r"(phd|ph\.d\.?)\s+(is\s+)?(required|needed)|must have a (phd|ph\.d)", re.I)
 
 # Section headings: "Preferred Qualifications" on its own line, or "Preferred:" starting a sentence.
@@ -84,7 +85,8 @@ _EXPERIENCE = re.compile(r"\bexperience\b|\bexp\.", re.I)
 _WITHOUT_EXPERIENCE = re.compile(r"\b(?:without|no)\s+(?:any\s+|prior\s+)?(?:work\s+)?experience\b", re.I)
 _OR_NUMBER = re.compile(r"\bor\b(?=\s+(?:\w+\s+){0,2}?\d)", re.I)
 _DEGREES = (
-    ("master", re.compile(r"\bmaster['’]?s?\b|\bm\.s\.|\bms\b|\bm\.?sc\b|\bm\.?eng\b|\bmba\b", re.I)),
+    ("master", re.compile(r"\bmaster['’]?s?\b|\bm\.s\.|\bms\b|\bm\.?sc\b|\bm\.?eng\b|\bmba\b|\b(?:advanced|graduate)\s+degree",
+                          re.I)),
     ("bachelor", re.compile(r"\bbachelor['’]?s?\b|\bb\.s\.|\bbs\b|\bb\.?sc\b|\bb\.a\.|\bba\b|\bb\.?eng\b|\bundergraduate\b", re.I)),
     ("phd", re.compile(r"\bph\.?\s?d\b|\bdoctora(?:te|l)\b", re.I)),
 )
@@ -102,7 +104,7 @@ def tagged_sentences(text: str) -> list[tuple[str, str]]:
     kind, out = "other", []
     for s, line_start, bullet in sentences(text):
         m = _HEAD_LABEL.match(s)
-        if m and len(m.group(1).split()) <= 6:
+        if m and (len(m.group(1).split()) <= 6 or (line_start and not s[m.end():].strip() and len(m.group(1).split()) <= 10)):
             label = m.group(1)
         elif line_start and not bullet and len(s.split()) <= 6 and not re.search(r"\d|[.!?,]$", s):
             label = s
@@ -189,15 +191,72 @@ def _sentence_years(s: str) -> list[int]:
     return [min(nums)] if len(clause_of) > 1 else [max(nums)]
 
 
-def min_years_required(text: str) -> int | None:
-    """Lowest required "N years of experience" in a posting. Preferred, Nice to have, Bonus and Plus sections
-    don't count, and degree path lists use the Master's path."""
+def _degree_block(tagged: list[tuple[str, str]], i: int) -> list[str] | None:
+    """Degree paths listed over consecutive lines, starting at line i: "Bachelor's and 5 years;" "Master's and
+    3 years;" "or PhD", or a degree line with its years on the next line and "OR Master's degree" after it.
+    None unless the lines name two or more degree levels and read as alternatives (a line opening with "or",
+    or two or more degree lines that each carry their own years)."""
+    kind = tagged[i][0]
+    run = []
+    for k in range(i, len(tagged)):
+        knd, s = tagged[k]
+        has_degree = any(pat.search(s) for _, pat in _DEGREES)
+        if knd != kind or not (has_degree or (run and YEARS.search(s))):
+            break
+        run.append((s, has_degree))
+    if not run or not run[0][1]:
+        return None
+    levels = [{name for name, pat in _DEGREES if pat.search(s)} for s, has in run if has]
+    if len(set().union(*levels)) < 2 or max(len(lv) for lv in levels) == len(set().union(*levels)):
+        return None  # one level, or every level already in one line (that line handles itself)
+    or_lead = any(re.match(r"\W*or\b", s, re.I) for s, _ in run[1:]) or any(re.search(r"\bor\W*$", s, re.I) for s, _ in run[:-1])
+    parallel = sum(1 for s, has in run if has and YEARS.search(s)) >= 2
+    return [s for s, _ in run] if or_lead or parallel else None
+
+
+def _block_years(block: list[str]) -> int | None:
+    """Master's path years (Bachelor's when there's no Master's path) from a degree block. Each degree line is a path
+    with every number on it ("3+ years of applied ML experience (Master's)", "M.S. with 3+ years;"); a line naming
+    no degree adds its years to the path above it; a path with no number needs none."""
+    paths: list[tuple[set, list[int]]] = []
+    for line in block:
+        levels = {name for name, pat in _DEGREES if pat.search(line)}
+        years = _sentence_years(line) if len(levels) > 1 else [n for n, _ in _required_years(line, loose=True)]
+        if levels:
+            paths.append((levels, years))
+        elif paths:
+            paths[-1][1].extend(years)
+    for want in ("master", "bachelor"):
+        picked = [max(years) if years else 0 for levels, years in paths if want in levels]
+        if picked:
+            return min(picked)
+    return None
+
+
+def required_years(text: str) -> int | None:
+    """Required "N years of experience" in a posting. Every bullet under Basic, Minimum or Required Qualifications
+    applies, so the strictest one wins there. A posting without those headings uses its lowest number. Preferred,
+    Nice to have, Bonus and Plus sections don't count, and degree path lists use the Master's path, whether they
+    sit in one sentence or over several lines."""
     text = _WORDS.sub(lambda m: str(_WORD_NUMS[m.group(1).lower()]), text or "")
-    found = []
-    for kind, s in tagged_sentences(text):
+    tagged = tagged_sentences(text)
+    basic, other = [], []
+    i = 0
+    while i < len(tagged):
+        kind, s = tagged[i]
+        found = basic if kind == "basic" else other
+        block = _degree_block(tagged, i) if kind != "preferred" else None
+        path = _block_years(block) if block else None
+        if path is not None:
+            found.append(path)
+            i += len(block)
+            continue
         if kind != "preferred":
             found += _sentence_years(s)
-    return min(found) if found else None
+        i += 1
+    if basic:
+        return max(basic)
+    return min(other) if other else None
 
 
 def phd_in_basic(text: str) -> bool:
@@ -292,7 +351,7 @@ class KeywordScorer:
     def red_flags(self, job: Job, years=None) -> list[str]:
         """Problems read straight from the text. Shown in the email and they lower the score, but never block."""
         desc = job.description or ""
-        years = min_years_required(desc) if years is None else years
+        years = required_years(desc) if years is None else years
         flags = []
         if years is not None and years >= 3:
             flags.append(f"asks for {years}+ years")
@@ -316,7 +375,7 @@ class KeywordScorer:
             s += 1
         jd_skills = {k for k in SKILLS if k in low}
         s += min(2, len(jd_skills) // 5)
-        years = min_years_required(job.description or "")
+        years = required_years(job.description or "")
         if years is not None:
             if years >= 5:
                 s -= 4
@@ -325,11 +384,9 @@ class KeywordScorer:
             elif years <= 2:
                 s += 1
         flags = self.red_flags(job, years)
-        if "PhD required" in flags:
-            s -= 3
         s = max(1, min(10, s))
-        if flags:  # a keyword estimate never rates a red flagged job highly, even when the AI batch failed
-            s = min(s, 3)
+        if flags:
+            s = max(1, s - RED_FLAG_PENALTY)
         why = f"{len(jd_skills)} of your skills show up"
         why += f", asks for {years}+ years" if years is not None else ""
         if not job.description:
@@ -482,11 +539,11 @@ class LLMScorer:
         return out
 
     def _with_flags(self, score: Score, job: Job) -> Score:
-        """Red flags found in the text go on the AI score too: listed first, and the score drops by 3."""
+        """Red flags found in the text go on the AI score too, listed first, with the same penalty as keyword scores."""
         flags = self.fallback.red_flags(job)
         if flags:
             score.red_flags = (flags + [f for f in score.red_flags if f not in flags])[:4]
-            score.score = max(1, score.score - 3)
+            score.score = max(1, score.score - RED_FLAG_PENALTY)
         return score
 
     def score_many(self, jobs: list[Job]) -> list[Score]:
