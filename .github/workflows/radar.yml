@@ -1,15 +1,16 @@
 name: job-radar
+run-name: ${{ inputs.mode || 'run' }} (${{ inputs.source || github.event_name }})
 
 on:
+  # The on time trigger is cron-job.org calling workflow_dispatch (docs/SCHEDULE.md): every 30 minutes,
+  # 8am to 11:30pm ET on weekdays and every 2 hours on weekends, in Eastern time so daylight saving is handled.
+  # These GitHub crons are only a backup. GitHub starts them late or not at all, so they run a few times a day,
+  # and the guard job below skips them when the radar already ran recently.
+  # Times are UTC; the hours cover 8am to 11:30pm ET both before and after daylight saving ends.
   schedule:
-    # Times are UTC. These match 8am to 11:30pm Eastern while daylight saving is on (until Nov 1).
-    # Minutes avoid the top of the hour, when GitHub's scheduler is busiest and runs arrive late.
-    # Winter (after Nov 1): swap the three weekday lines for these to keep 8am to 11:30pm ET:
-    #   "7,22,37,52 13-23 * * 1-5"   "7,22,37,52 0-3 * * 2-6"   "7,22,37 4 * * 2-6"
-    - cron: "7,22,37,52 12-23 * * 1-5"   # weekdays every 15 min, 8am to 8pm ET
-    - cron: "7,22,37,52 0-2 * * 2-6"     # weekdays every 15 min, 8pm to 11pm ET (UTC is already the next day)
-    - cron: "7,22,37 3 * * 2-6"          # weekdays 11pm to 11:30pm ET
-    - cron: "7 13-23/2 * * 0,6"          # weekends every 2 hours, about 9am to 7pm ET
+    - cron: "44 13,16,19,22 * * 1-5"   # weekdays, about 9am, noon, 3pm and 6pm ET
+    - cron: "44 1,3 * * 2-6"           # weekday evenings, about 9pm and 11pm ET (UTC is already the next day)
+    - cron: "44 15,21 * * 0,6"         # weekends, about 11am and 5pm ET
   workflow_dispatch:
     inputs:
       mode:
@@ -17,8 +18,12 @@ on:
         type: choice
         default: run
         options: [run, test, validate, backlog, reset]
+      source:
+        description: "Who started it (cron-job.org sets this; shown in the run name)"
+        type: string
+        default: manual
 
-concurrency:
+concurrency:  # one run at a time; a run that arrives during another waits instead of overlapping
   group: job-radar
   cancel-in-progress: false
 
@@ -39,7 +44,31 @@ env:
   RADAR_TEX_READY_FILE: /tmp/tex-ready
 
 jobs:
+  guard:
+    # Backup crons only: skip when cron-job.org (or anyone) ran the radar in the last 130 minutes.
+    # Costs one billed minute; if the check itself fails, the radar runs anyway.
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      actions: read
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          since=$(date -u -d '-130 minutes' +%Y-%m-%dT%H:%M:%SZ)
+          recent=$(gh run list -R "$GITHUB_REPOSITORY" -w radar.yml -L 30 --json databaseId,displayTitle,createdAt,conclusion \
+            --jq "[.[] | select(.databaseId != $GITHUB_RUN_ID and .createdAt > \"$since\" and .conclusion != \"cancelled\"
+                   and (.displayTitle | startswith(\"run \")))] | length")
+          echo "Radar runs since $since: ${recent:-unknown}"
+          if [ "${recent:-0}" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
+
   radar:
+    needs: guard
+    if: ${{ !cancelled() && needs.guard.outputs.skip != 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

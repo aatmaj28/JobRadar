@@ -1,12 +1,12 @@
 # Job Radar
 
-Finds new US entry level AI, ML and software roles within about 15 minutes of posting, scores each one against your master files, and emails you the good ones with everything you need to apply fast.
+Finds new US entry level AI, ML and software roles within about 30 minutes of posting, scores each one against your master files, and emails you the good ones with everything you need to apply fast.
 
 **Each email has:** fit score and why, which EXP and PROJ entries to lead with, an Apply button, LinkedIn searches for NEU alumni, MUJ alumni and recruiters at that company, two short referral notes, and a block you paste straight into your Resume Maker project (or the finished resume PDF, see below).
 
 **It skips** senior and level II+ roles, internships, contract roles, anything asking for more than 2 years, and postings that say no sponsorship, citizens only, or need a clearance.
 
-**Where jobs come from:** about 220 companies in companies.yaml (checked every 15 minutes), plus up to 2,000 more Greenhouse, Lever, Ashby and Workday boards found in the SimplifyJobs New Grad feed (checked about every 45 minutes), plus the feed itself (that's how Google, Meta, Amazon and Microsoft roles come in).
+**Where jobs come from:** about 220 companies in companies.yaml (checked every 30 minutes on weekdays), plus up to 2,000 more Greenhouse, Lever, Ashby and Workday boards found in the SimplifyJobs New Grad feed (checked about every 90 minutes), plus the feed itself (that's how Google, Meta, Amazon and Microsoft roles come in).
 
 ## Setup (about 20 minutes)
 
@@ -25,6 +25,7 @@ Finds new US entry level AI, ML and software roles within about 15 minutes of po
    - mode **validate**: an email listing any companies.yaml entries that look wrong
    - mode **run**: the first real run. It quietly learns what's already posted and emails you a spreadsheet of every matching role open right now. Apply to those first.
    After that it runs by itself all day.
+7. **On time runs.** GitHub's own scheduler starts most runs hours late, so cron-job.org starts them instead. Follow docs/SCHEDULE.md (about 10 minutes).
 7. **Autofill.** Install the Simplify Copilot browser extension for Workday and Greenhouse forms. Keep ANSWER_BANK.md open for the rest.
 
 ## Resumes: paste block now, automatic PDFs later
@@ -58,8 +59,8 @@ py -m radar run --dry
 ## Good to know
 - Sponsorship wording varies, so a few postings may slip through. The AI score also treats them as dealbreakers, and you can always skip one.
 - Companies that don't exist switch themselves off after 3 misses. Run mode validate once a month.
-- GitHub's free plan gives private repos 2,000 Actions minutes a month. Checking every 15 minutes from 8am to 11:30pm on weekdays uses roughly 1,450 to 1,800, so glance at Settings > Billing after the first week. The GitHub Student Pack includes Pro, which gives 3,000. GitHub can also delay scheduled runs by a few minutes when it's busy.
-- GitHub schedules run on UTC time. After Nov 1, swap in the winter lines from the comment at the top of .github/workflows/radar.yml to keep 8am to 11:30pm ET.
+- GitHub's free plan gives private repos 2,000 Actions minutes a month. Checking every 30 minutes on weekdays uses about 1,100 to 1,400, plus about 150 for the backup checks. Every 15 minutes would be 2,000 to 2,600, over the limit. The GitHub Student Pack includes Pro, which gives 3,000. See docs/SCHEDULE.md.
+- cron-job.org runs on Eastern time, so daylight saving is handled. The backup crons in .github/workflows/radar.yml cover both summer and winter hours.
 - Mode backlog rebuilds the open roles spreadsheet with every check applied (years asked and sponsorship) and emails it. It reads every description, so it takes about 5 minutes.
 - The radar's memory lives in the Actions cache. Mode reset wipes it, and the next run sends the open roles spreadsheet again.
 - Update LinkedIn to match your resume: DASH title "AI Software Engineer Research Assistant", LiquidPixels title "AI Training Data Engineer", and Borealis as "AI Engineer, Borealis Global Advisory LLC" from May 2025.
