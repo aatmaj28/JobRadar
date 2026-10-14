@@ -45,7 +45,7 @@ def build(cfg: dict, dry: bool) -> Ctx:
     missing = profile.missing()
     if missing:
         sys.exit(f"Missing profile files: {missing}")
-    keyword = KeywordScorer(profile, cfg["referrals"]["default_hook"])
+    keyword = KeywordScorer(profile, cfg["referrals"]["default_hook"], cfg.get("earliest_start"))
     llm = make_llm(cfg, env)
     scorer = keyword
     if llm is not None and cfg["scoring"].get("use_ai", True):

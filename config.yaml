@@ -41,7 +41,9 @@ titles:
     - '\b(sales|account executive|recruiter|marketing)\b'
 
 entry_level:
-  max_years_required: 2               # skip postings whose lowest "N years of experience" is above this
+  max_years_required: 2               # skip postings whose required years (Master's path, Preferred sections ignored) is above this
+
+earliest_start: "2027-01"             # red flag for postings that want you to start before this month, or immediately
 
 work_authorization:
   # F-1 OPT from Dec 2026, STEM OPT eligible, H-1B sponsorship needed later

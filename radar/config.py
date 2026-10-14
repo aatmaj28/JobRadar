@@ -18,6 +18,7 @@ DEFAULTS: dict = {
     "location": {"allow_unspecified_remote": True},
     "work_authorization": {"skip_no_sponsorship": True, "skip_citizenship_or_clearance": True},
     "entry_level": {"max_years_required": 2},
+    "earliest_start": None,
     "llm": {"provider": "groq", "groq_plan": "free"},
     "skip_companies": [],
     "max_job_age_days": 21,

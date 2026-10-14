@@ -122,14 +122,25 @@ def recent_enough(job: Job, max_age_days: float) -> bool:
 
 # Work authorization. Aatmaj is on F-1 OPT (STEM OPT eligible) and needs H-1B sponsorship later,
 # so postings that rule out sponsorship or require citizenship / clearance are skipped.
-_NO_SPONSOR = re.compile(r"""
+# Vague lines like "must be currently authorized to work in the United States" are fine on OPT and don't count.
+# One sentence: periods in "U.S." and "U.S.C." don't end it.
+_SENTENCE = r"(?:[^.!?;]|\.(?=\S)|(?<=\b[a-z])\.)"
+# "sponsorship (such as TN, O-1, H-1B, etc.) for this role is not available"
+_ASIDE = r"(?:\s*\([^)]{0,80}\))?(?:\s+for\s+(?:this|the)\s+(?:role|position|job|opportunity))?"
+_NO_SPONSOR = re.compile(rf"""
   (?:will\s+not|won['’]?t|cannot|can['’]?t|unable\s+to|do(?:es)?\s+not|(?:are\s+)?not\s+able\s+to)\s+
       (?:currently\s+)?(?:provide|offer|support)?\s*(?:visa\s+|employment\s+|immigration\s+|h-?1b\s+)?sponsor
-| (?:visa\s+|employment\s+|immigration\s+)?sponsorship\s+(?:is\s+)?(?:not|un)\s*available
-| not\s+(?:be\s+)?eligible\s+for\s+(?:visa\s+|immigration\s+|employment\s+)?sponsorship
-| \bno\s+(?:visa\s+|immigration\s+|employment\s+)?sponsorship
+| (?:are|is)\s+not\s+(?:currently\s+)?(?:offering\s+|providing\s+)?sponsor(?:ing|ship)\b
+| sponsorship{_ASIDE}\s+(?:(?:is|are|will)\s+)?(?:not|un)\s*(?:be\s+)?(?:available|provided|offered|possible|supported)
+| not\s+(?:be\s+)?eligible\s+for\s+(?:(?:visa|immigration|employment|h-?1b)\s+){{0,2}}sponsorship
+| \bno\s+(?:(?:visa|immigration|employment|h-?1b)\s+){{0,2}}sponsorship
 | without\s+(?:the\s+)?(?:need\s+for\s+)?(?:current\s+or\s+future\s+|future\s+|employer\s+|company\s+)?
       (?:visa\s+|employment\s+|immigration\s+)?sponsorship
+| sponsor\w*{_SENTENCE}{{0,80}}?\bnow\s+or\s+in\s+the\s+future\b(?!{_SENTENCE}*\?)
+| \bnow\s+or\s+in\s+the\s+future\b{_SENTENCE}{{0,80}}?\bsponsor\w*(?!{_SENTENCE}*\?)
+| authori[sz]ed\s+to\s+(?:be\s+employed|work)\s+(?:in\s+the\s+(?:u\.?\s?s\.?|united\s+states)\s+)?
+      (?:for|by)\s+any\s+(?:u\.?\s?s\.?\s+)?employer
+| permanent(?:ly)?\s+(?:u\.?\s?s\.?\s+)?(?:work\s+authori[sz]ation|authori[sz]ed\s+to\s+work)
 """, re.I | re.X)
 _CITIZEN = re.compile(r"""
   (?:u\.?\s?s\.?|united\s+states)\s+citizen(?:ship)?\s+(?:is\s+)?(?:required|only)
@@ -144,8 +155,7 @@ _CITIZEN = re.compile(r"""
 | \bitar\b[\s\S]{0,240}(?:u\.?\s?s\.?\s+persons?|citizens?\b)
 """, re.I | re.X)
 # ITAR style lists ("U.S. citizen or national ... refugee ... asylee") only count after requirement wording in the
-# same sentence, because equal opportunity notices list the same groups. Periods in "U.S." and "U.S.C." don't end it.
-_SENTENCE = r"(?:[^.!?;]|\.(?=\S)|(?<=\b[a-z])\.)"
+# same sentence, because equal opportunity notices list the same groups.
 _ITAR_LIST = re.compile(
     r"(?:must\s+be|applicants?\s+must|candidates?\s+must|\bitar\b|export\s+(?:control\s+)?regulations?)"
     rf"(?:{_SENTENCE}{{0,120}}?(?:u\.?\s?s\.?|united\s+states)\s+citizens?\s+or\s+(?:u\.?\s?s\.?\s+)?nationals?"

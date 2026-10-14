@@ -23,6 +23,33 @@ def html_to_text(s: str | None) -> str:
     return s.strip()
 
 
+_ABBREV_END = re.compile(r"(?:\b[A-Za-z]\.)+$|\b(?:e\.g|i\.e|etc|vs|incl|approx|inc|jr|sr|dr|mr|mrs|st|no)\.$", re.I)
+_BULLET = re.compile(r"^(?:[•·▪●◦*]|[-–]\s|\d{1,2}[.)]\s)\s*")
+
+
+def sentences(text: str | None) -> list[tuple[str, bool, bool]]:
+    """Split description text into (sentence, starts its line, line is a bullet). A new line always ends a
+    sentence; so do . ! ? ; except after abbreviations like "U.S." and "8 U.S.C."."""
+    out = []
+    for raw in (text or "").splitlines():
+        line = raw.strip()
+        bullet = bool(_BULLET.match(line))
+        line = _BULLET.sub("", line, count=1).strip()
+        start, first = 0, True
+        for m in re.finditer(r"[.!?;](?=\s|$)", line):
+            if line[m.start()] == "." and _ABBREV_END.search(line[start:m.end()]):
+                continue
+            piece = line[start:m.end()].strip()
+            if piece:
+                out.append((piece, first, bullet))
+                first = False
+            start = m.end()
+        tail = line[start:].strip()
+        if tail:
+            out.append((tail, first, bullet))
+    return out
+
+
 def clip(s: str, n: int) -> str:
     s = s or ""
     return s if len(s) <= n else s[: n - 1].rstrip() + "…"

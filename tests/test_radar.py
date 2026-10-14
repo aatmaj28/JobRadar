@@ -21,7 +21,8 @@ from radar.notify import Notifier, email_job  # noqa: E402
 from radar.prep import Preparer, compile_tex, extract_latex, make_safe  # noqa: E402
 from radar.profile import Profile  # noqa: E402
 from radar.referral import drafts  # noqa: E402
-from radar.scoring import KeywordScorer, LLMScorer, min_years_required  # noqa: E402
+from radar.scoring import (KeywordScorer, LLMScorer, focus_jd, job_number, min_years_required, phd_in_basic,  # noqa: E402
+                           start_date_flag, year_month)
 from radar.sources import ashby, greenhouse, lever, workday  # noqa: E402
 from radar.state import State  # noqa: E402
 
@@ -136,6 +137,46 @@ class WorkAuthTests(unittest.TestCase):
                      "status, or national origin.", ""]:
             self.assertIsNone(work_auth_blocker(job(desc=text)), text)
 
+    def test_blocks_every_no_sponsorship_phrasing(self):
+        # INVESTIGATION.md section 5 table (all but the vague "currently authorized" line), then the new ones
+        for text in ["U.S. work visa sponsorship (such as TN, O-1, H-1B, etc.) is not available for this role now or in the future.",
+                     "Candidates must be authorized to be employed in the U.S. by any employer.",
+                     "Requires permanent work authorization in the United States.",
+                     "Sponsorship will not be provided for this position.",
+                     "Visa sponsorship is not offered for this role.",
+                     "We are not sponsoring visas at this time.",
+                     "This role is not eligible for H-1B sponsorship.",
+                     "We are unable to sponsor visas for this role.",
+                     "Sponsorship is not available.",
+                     "No visa sponsorship available.",
+                     "Must be authorized to work for any employer in the United States.",
+                     "Must be able to work in the U.S. without sponsorship now or in the future.",
+                     "Applicants who require sponsorship now or in the future will not be considered.",
+                     "Sponsorship for this role is not available now or in the future.",
+                     "We cannot offer visa sponsorship, now or in the future.",
+                     "U.S. citizens only.",
+                     "Green card holders only."]:
+            self.assertIsNotNone(work_auth_blocker(job(desc=text)), text)
+
+    def test_vague_authorization_lines_pass(self):
+        for text in ["Must be currently authorized to work in the United States.",
+                     "Authorized to work on a full time basis.",
+                     "Applicants must be currently authorized to work in the United States on a full-time basis.",
+                     "Will you now or in the future require visa sponsorship?",
+                     "We build products today and plan to keep doing so now or in the future."]:
+            self.assertIsNone(work_auth_blocker(job(desc=text)), text)
+
+    def test_pfizer_posting_is_dropped_twice(self):
+        desc = ("BASIC QUALIFICATIONS:\n• PhD with 1+ years of experience OR Master’s degree with 5+ years of software or ML "
+                "engineering experience - OR Bachelors degree and 6 + years of experience and/or equivalent demonstrated "
+                "experience shipping AI/ML systems for scientific applications.\n"
+                "Candidates must be authorized to be employed in the U.S. by any employer.\n"
+                "U.S. work visa sponsorship (such as TN, O-1, H-1B, etc.) is not available for this role now or in the future.")
+        self.assertIsNotNone(work_auth_blocker(job("Translational AI Engineer", desc)))
+        self.assertEqual(min_years_required(desc), 5)
+        filt = pipeline.Filters(CFG)
+        self.assertFalse(filt.final(job("Translational AI Engineer", desc, location="Cambridge, MA")))
+
     def test_simplify_tags(self):
         self.assertTrue(work_auth_blocker(job(extra={"sponsorship": "No sponsorship"})))
         self.assertTrue(work_auth_blocker(job(extra={"sponsorship": "US Citizenship Required"})))
@@ -149,6 +190,80 @@ class WorkAuthTests(unittest.TestCase):
         self.assertEqual(min_years_required("Experience: 4+ yrs building APIs"), 4)
         self.assertEqual(min_years_required("BS with 3+ years, or MS with 1+ years of experience"), 1)
         self.assertIsNone(min_years_required("Start in 2026. Years of experience are a plus."))
+
+
+class YearsTests(unittest.TestCase):
+    """INVESTIGATION.md section 7, items 1 to 4."""
+
+    def check(self, cases):
+        for text, want in cases:
+            self.assertEqual(min_years_required(text), want, text)
+
+    def test_degree_paths_use_the_masters_path(self):
+        self.check([
+            ("PhD with 1+ years of experience OR Master’s degree with 5+ years of software or ML engineering experience "
+             "- OR Bachelors degree and 6 + years of experience", 5),
+            ("Bachelor's with 4+ years of experience, or Master's with 2+ years of experience", 2),
+            ("PhD with 1+ years of experience or Bachelor's degree with 4+ years of experience", 4),  # no Master's path
+            ("Master's or Bachelor's degree with 5+ years of experience.", 5),  # the years apply to both
+            ("Bachelor's degree and 4 years of experience, or a Master's degree.", 0),  # the Master's path needs none
+            ("BS/MS in Computer Science or a related field and 2+ years of experience.", 2),
+            ("Bachelor’s degree in Computer Science or equivalent practical experience, and 3 years of experience.", 3),
+        ])
+
+    def test_preferred_sections_dont_count(self):
+        self.check([
+            ("Minimum Qualifications: 5+ years of software experience. Preferred: 1+ year of experience with Kubernetes.", 5),
+            ("Required: 4 years of experience. Nice to have: experience with Go (2+ years preferred).", 4),
+            ("BASIC QUALIFICATIONS:\n• 3+ years of experience in Python\nPREFERRED QUALIFICATIONS:\n• 1+ year of experience with Rust", 3),
+            ("Requirements\n• 4+ years of experience\nNice to have\n• 1+ year of experience with Go", 4),
+            ("Bonus points:\n• 1 year of experience with CUDA\nWhat you need:\n• 3+ years of experience with Python", 3),
+            ("Plus: 1+ year of experience with Rust. Required: 3+ years of experience.", 3),
+            ("3+ years of experience with Kubernetes is a plus.", None),
+        ])
+
+    def test_experience_anywhere_in_the_sentence(self):
+        self.check([
+            ("Basic Qualifications: Bachelor's degree. 3+ years of non-internship professional software development experience.", 3),
+            ("You have 6+ years building backend systems.", 6),
+            ("5 years professional experience", 5),
+            ("2+ years’ experience in ML", 2),
+            ("Minimum experience: 3 years.", 3),
+        ])
+
+    def test_real_postings(self):
+        # Lines from live postings that an earlier draft of this parser got wrong
+        self.check([
+            ("Master’s degree with 15 or more years of prior relevant experience or Doctorate with 13 or more years of relevant experience.", 15),
+            ("Bachelor's degree AND 5 or more years of experience in Epidemiology, OR MPH/MS AND 3 or more years of experience.", 3),
+            ("Have 1 - 3 years of experience and a minimum of a BS and/or MS in Computer Science", 1),
+            ("6+ years in data science, with significant time on growth or experimentation", 6),
+            ("In lieu of Associates degree(s) listed above, High School/GED AND 2 year(s) related work experience", 2),
+            ("Bachelor’s degree and a minimum of 10 years’ business, analytical, technical, digital product, transformation, "
+             "or product ownership experience", 10),
+            ("5+ years of experience building web applications in a production environment (startup or fast-paced product team preferred)", 5),
+            ("8+ years in software engineering or technical consulting, including 5+ years building enterprise cloud or AI solutions", 8),
+            ("Experience — 3–5 years total;", 3),
+            ("Proven experience (7+ years preferred) designing enterprise web applications.", None),
+            ("A minimum of 2 years data science or related work experience is required with Bachelor's degree or Master's degree "
+             "without experience.", 0),
+            ("Bachelor’s degree, OR 3+ years of relevant work experience.", 0),
+            ("You possess a bachelor's degree in Computer Science, Electrical Engineering, or a closely related field or 3+ "
+             "years of equivalent experience.", 0),
+            ("Doctorate degree in sensor analytics, atmospheric science, or applied data science AND 5+ years of experience OR "
+             "Master's degree in sensor analytics, atmospheric science, or applied data science AND 7+ years of experience OR "
+             "Bachelor's degree in applied data science AND 10+ years of experience", 7),
+            ("Bachelor’s, master’s or PhD in computer science, physics or related discipline with at least 5 years of industry "
+             "experience.", 5),
+            ("Tuition Reimbursement After 1 Year of Service\n6–9 years of software engineering experience", 6),
+        ])
+
+    def test_only_requirement_phrases_count(self):
+        self.check([
+            ("Founded 2 years ago by experienced engineers. You have 6+ years building backend systems.", 6),
+            ("Founded 2 years ago by experienced engineers.", None),
+            ("We have been around for 10 years and our experience shows.", None),
+        ])
 
 
 class UrlAndSourceTests(unittest.TestCase):
@@ -226,6 +341,83 @@ class CopyAndScoringTests(unittest.TestCase):
         self.assertEqual(out[0].lead_with, ["EXP-8", "PROJ-12"])
         self.assertNotIn("-", out[0].hook)
         self.assertEqual(len(llm.calls), 1)
+
+    def test_llm_reads_any_job_label(self):
+        self.assertEqual([job_number(x) for x in [1, 2.0, "3", "JOB 4", "Job 5", "job #6", "x", None, True, 1.5]],
+                         [1, 2, 3, 4, 5, 6, None, None, None, None])
+        reply = json.dumps({"results": [{"job": label, "score": 8, "why": "fits"} for label in ["JOB 1", "Job 2", "3", 4]]})
+        sc = LLMScorer(FakeLLM([reply]), "m", PROFILE, [], KeywordScorer(PROFILE))
+        out = sc.score_many([job(f"AI Engineer {n}") for n in "ABCD"])
+        self.assertEqual([(s.score, s.by) for s in out], [(8, "ai")] * 4)
+
+    def test_one_bad_result_only_costs_that_job(self):
+        reply = json.dumps({"results": [{"job": "JOB 1", "score": 9, "why": "fits"}, {"job": "JOB 2", "score": "high"},
+                                        {"job": "JOB 3", "why": "no score"}]})
+        logs = []
+        sc = LLMScorer(FakeLLM([reply]), "m", PROFILE, [], KeywordScorer(PROFILE), log=logs.append)
+        out = sc.score_many([job("AI Engineer"), job("ML Engineer"), job("Data Scientist"), job("LLM Engineer")])
+        self.assertEqual([s.by for s in out], ["ai", "keywords", "keywords", "keywords"])
+        self.assertEqual(out[0].score, 9)
+        self.assertTrue(any("job 2 (ML Engineer at Acme)" in l and "'high'" in l for l in logs), logs)
+        self.assertTrue(any("job 3 (Data Scientist at Acme)" in l and "no score" in l for l in logs), logs)
+        self.assertTrue(any("left out job 4 (LLM Engineer at Acme)" in l for l in logs), logs)
+
+    def test_ai_excerpt_keeps_the_key_lines(self):
+        filler = " ".join(f"You will own part {i} of our platform and work closely with partner teams." for i in range(40))
+        desc = (f"ROLE SUMMARY: {filler}\nQUALIFICATIONS:\n• Strong Python and PyTorch skills.\n• Master's degree with 5+ years of "
+                f"experience.\n{filler}\nWe are an equal opportunity employer without regard to citizenship status.\n"
+                "U.S. work visa sponsorship (such as TN, O-1, H-1B, etc.) is not available for this role.\n"
+                "Candidates must be authorized to be employed in the U.S. by any employer.\nStart date: November 2026.")
+        excerpt = focus_jd(desc, 1400)
+        self.assertLessEqual(len(excerpt), 1400)
+        for line in ["Master's degree with 5+ years", "sponsorship (such as TN", "by any employer", "Start date: November 2026",
+                     "Strong Python and PyTorch"]:
+            self.assertIn(line, excerpt)
+        self.assertNotIn("equal opportunity", excerpt)
+
+    def test_red_flags_cap_the_keyword_score(self):
+        ks = KeywordScorer(PROFILE, earliest_start="2027-01")
+        strong = "Python PyTorch LLM RAG agents FastAPI Docker AWS vector embedding inference evaluation. 0-2 years of experience."
+        self.assertGreaterEqual(ks.score(job("AI Engineer, New Grad", strong)).score, 8)
+        for extra, flag in [("Basic Qualifications:\n• PhD in Computer Science.", "PhD required"),
+                            ("Candidates must be able to start immediately.", "asks to start immediately"),
+                            ("Start date: November 2026.", "start date November 2026 is before January 2027")]:
+            s = ks.score(job("AI Engineer, New Grad", f"{strong}\n{extra}"))
+            self.assertLessEqual(s.score, 3, extra)
+            self.assertIn(flag, s.red_flags)
+        self.assertEqual(ks.score(job("AI Engineer, New Grad", f"{strong}\nStart date: January 2027.")).red_flags, [])
+
+    def test_red_flags_lower_ai_scores_and_show_in_the_email(self):
+        reply = json.dumps({"results": [{"job": 1, "score": 9, "why": "fits", "red_flags": []}]})
+        sc = LLMScorer(FakeLLM([reply]), "m", PROFILE, [], KeywordScorer(PROFILE, earliest_start="2027-01"))
+        j = job("AI Engineer", "Python agents. Minimum Qualifications: PhD in Machine Learning. Start date: Fall 2026.")
+        s = sc.score_many([j])[0]
+        self.assertEqual((s.score, s.by), (6, "ai"))
+        self.assertEqual(s.red_flags, ["PhD required", "start date Fall 2026 is before January 2027"])
+        _subject, html_body, text = email_job(j, s, [], [], [], False, "")
+        self.assertIn("PhD required; start date Fall 2026 is before January 2027", html_body)
+        self.assertNotRegex(" ".join(s.red_flags), r"[-–—]")
+
+    def test_phd_and_start_date_detection(self):
+        self.assertTrue(phd_in_basic("Basic Qualifications:\n• PhD in Computer Science or a related field"))
+        self.assertTrue(phd_in_basic("Minimum Qualifications: PhD in ML."))
+        self.assertFalse(phd_in_basic("Basic Qualifications:\n• PhD or Master's in CS"))
+        self.assertFalse(phd_in_basic("Preferred Qualifications:\n• PhD in CS"))
+        self.assertFalse(phd_in_basic("PhD students are welcome to apply."))
+        self.assertFalse(phd_in_basic("Minimum Qualifications:\n• Master's Level Degree and 0 years related work experience;\n"
+                                      "• Doctorate (Academic) Degree and 0 years related work experience;"))
+        ks = KeywordScorer(PROFILE)
+        self.assertNotIn("PhD required", ks.red_flags(job("ML Engineer", "Master's or PhD Required")))
+        self.assertIn("PhD required", ks.red_flags(job("ML Engineer", "PhD required.")))
+        jan = year_month("2027-01")
+        cases = {"Start date: November 2026.": "start date November 2026 is before January 2027",
+                 "Expected start date is Fall 2026.": "start date Fall 2026 is before January 2027",
+                 "The program begins on 07/13/2026.": "start date 07/13/2026 is before January 2027",
+                 "Start: ASAP": "asks to start immediately", "This role starts in January 2027.": "",
+                 "Start date: Summer 2027.": "", "We started in 2015.": "", "We're a start-up founded in 2015.": "",
+                 "Starting in 2026 we grew fast.": "", "The anticipated start date is Fall 2026 or Spring 2027.": ""}
+        for text, want in cases.items():
+            self.assertEqual(start_date_flag(text, jan), want, text)
 
     def test_email_format(self):
         s = KeywordScorer(PROFILE).score(job("AI Engineer", "Python"))

@@ -41,6 +41,7 @@ For finished PDFs in the same email thread, either add a card on Groq (Developer
 ## Handy settings (config.yaml)
 - `titles`: what to include and exclude
 - `entry_level.max_years_required`: 2
+- `earliest_start`: "2027-01". Postings that want you to start earlier, or immediately, get a red flag and a lower score
 - `work_authorization`: both skips are on
 - `notify.max_pings_per_day`: 30, anything extra arrives as one summary email
 - `skip_companies`: names you never want to see
