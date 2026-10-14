@@ -67,7 +67,8 @@ py scripts\cron_job_org.py
 * **What it does:** checks the GitHub token, then creates **JobRadar weekdays** (8:07am to 11:37pm ET, every 30 min) and **JobRadar weekends** (9:07am to 7:07pm ET, every 2 hours). It prints their next run times.
 * **Running it again:** updates the same two jobs.
 * **Options:** `--every 15` or `--every 20` changes the weekday interval, and `--dry` shows what it would send without changing anything.
-* **Where the token lives:** cron-job.org stores it in the jobs' request headers. Don't paste it anywhere else, and don't put it in `.env`.
+* **Or use `.env`:** put `CRONJOB_API_KEY` and `GITHUB_DISPATCH_TOKEN` in `.env` (gitignored, placeholders are already there) and run just `.venv/bin/python scripts/cron_job_org.py`.
+* **Where the token lives:** cron-job.org stores it in the jobs' request headers. Don't paste it anywhere else. If you upload `.env` with `gh secret set -f .env` again, remove these two lines first: GitHub doesn't need them.
 
 <details><summary>Or set the jobs up by hand in the cron-job.org console</summary>
 

@@ -2,6 +2,7 @@
 
     CRONJOB_API_KEY=...  GITHUB_DISPATCH_TOKEN=...  python scripts/cron_job_org.py [--every 30] [--dry]
 
+Both can also go in .env instead (gitignored); the environment wins when both are set.
 CRONJOB_API_KEY        cron-job.org > Settings > API keys
 GITHUB_DISPATCH_TOKEN  fine grained GitHub token: only this repository, Actions: Read and write
 --every                minutes between weekday runs: 30 (default, fits GitHub Free), 20 or 15
@@ -19,6 +20,7 @@ import sys
 import urllib.error
 import urllib.request
 from datetime import datetime
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 REPO = "aatmaj28/JobRadar"
@@ -27,6 +29,19 @@ DISPATCH_URL = f"https://api.github.com/repos/{REPO}/actions/workflows/{WORKFLOW
 CRON_API = "https://api.cron-job.org"
 TZ = "America/New_York"
 WEEKDAY_MINUTES = {30: [7, 37], 20: [7, 27, 47], 15: [7, 22, 37, 52]}  # never on the hour
+
+
+def dotenv(path: Path) -> dict:
+    """KEY=value lines from .env, the same format the radar reads."""
+    if not path.exists():
+        return {}
+    out = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            out[key.strip()] = value.strip().strip('"').strip("'")
+    return out
 
 
 def call(method: str, url: str, token: str, body: dict | None = None) -> tuple[int, dict]:
@@ -68,7 +83,8 @@ def main() -> int:
     ap.add_argument("--every", type=int, choices=sorted(WEEKDAY_MINUTES), default=30)
     ap.add_argument("--dry", action="store_true")
     args = ap.parse_args()
-    cron_key, gh_token = os.environ.get("CRONJOB_API_KEY", ""), os.environ.get("GITHUB_DISPATCH_TOKEN", "")
+    env = {**dotenv(Path(__file__).resolve().parent.parent / ".env"), **{k: v for k, v in os.environ.items() if v}}
+    cron_key, gh_token = env.get("CRONJOB_API_KEY", ""), env.get("GITHUB_DISPATCH_TOKEN", "")
     wanted = jobs(gh_token or "<GITHUB_DISPATCH_TOKEN>", args.every)
     if args.dry:
         for j in wanted:
